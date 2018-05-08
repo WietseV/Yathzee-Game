@@ -1,4 +1,4 @@
-package application;
+package domain;
 
 public class Speler {
 
