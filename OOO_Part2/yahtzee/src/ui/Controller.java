@@ -1,26 +1,38 @@
 package ui;
 
+import java.util.Optional;
+
+import com.sun.xml.internal.bind.v2.runtime.Name;
+
 import domain.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 
-public class Controller extends Application {
+public class Controller {
 
-	@Override
-	public void start(Stage primaryStage) {
-		Game game = new Game();
+	private Game game = new Game();
+	private TextInputDialog tid = new TextInputDialog();
+	private String name = "";
+
+	public void start() {
 		
-		InputDialog inputDialog = new InputDialog();
-		String name = inputDialog.ShowAndWait();
+		tid.setTitle("Register player");
+		tid.setHeaderText("Register a new player");
+		tid.setContentText("Please enter your name: ");
+		
+		Optional<String> result = tid.showAndWait();
+		if (result.isPresent()) {
+			name = result.get();
+		}
+		name = "cancel";
+		
 		game.regPlayer(name);
-		System.out.println(name);
+		PlayerController playerController = new PlayerController(game, name);
+		playerController.start();
 //		Scene scene = new Scene(inputPane,400,400);
 //		primaryStage.setScene(scene);
 //		primaryStage.show();
-	}
-
-	public static void main(String[] args) {
-		launch(args);
 	}
 }

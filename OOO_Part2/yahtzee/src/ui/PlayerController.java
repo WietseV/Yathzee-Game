@@ -1,16 +1,20 @@
 package ui;
 
+import domain.Game;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class PlayerController extends Application {
+public class PlayerController {
+	
+	Game game = new Game();
+	String playerName = new String();
 
-	@Override
-	public void start(Stage primaryStage) {
-		
+	public PlayerController(Game game, String playerName) {
+		this.game = game;
+		this.playerName = playerName;
 	}
 
-	public static void main(String[] args) {
-		launch(args);
+	public void start() {
+		System.out.println("its jhon ceenaaa!");
 	}
 }

@@ -1,10 +1,8 @@
 package ui;
 
-
-
 import java.util.Optional;
 
-import javafx.scene.control.*;
+import javafx.scene.control.TextInputDialog;
 
 public class InputDialog {
 	
@@ -19,7 +17,7 @@ public class InputDialog {
 		if (result.isPresent()) {
 			return result.get();
 		}
-		return "ahja makker";
+		return "cancel";
 	}
 	
 }
