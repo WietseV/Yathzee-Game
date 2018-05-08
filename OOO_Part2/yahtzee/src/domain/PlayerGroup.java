@@ -6,7 +6,8 @@ public class PlayerGroup {
 	
 	private List<Player> playerList = new ArrayList<Player>();
 
-	public void add(Player player) {
+	public void add(String name) {
+		Player player = new Player(name);
 		playerList.add(player);
 	}
 	
