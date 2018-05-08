@@ -42,8 +42,7 @@ public class Controller {
 		for(PlayerController pc : playerConList) {
 			pc.startGame();
 		}
-//		Scene scene = new Scene(inputPane,400,400);
-//		primaryStage.setScene(scene);
-//		primaryStage.show();
+		// Dit gaat aangepast moeten worden omdat het beter is om gewoon dat de controller zegt tegen facade, 
+		// ik ben klaar, begin maar. 
 	}
 }

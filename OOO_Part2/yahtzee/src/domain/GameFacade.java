@@ -10,6 +10,8 @@ public class GameFacade implements Subject{
 		playerGroup.add(name);
 	}
 
+	
+	
 	@Override
 	public void add(Observer o) {
 		// TODO Auto-generated method stub
