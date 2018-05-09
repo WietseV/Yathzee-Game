@@ -9,6 +9,7 @@ public class PlayerController {
 	
 	private GameFacade gameFacade = new GameFacade();
 	private String playerName = new String();
+	GameStage gameStage;
 
 	public PlayerController(GameFacade game, String playerName) {
 		this.gameFacade = game;
@@ -24,7 +25,7 @@ public class PlayerController {
 	}
 
 	public void startGame() {
-		GameStage gameStage = new GameStage(this);
+		this.gameStage = new GameStage(this);
 		gameStage.show();
 	}
 }

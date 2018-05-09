@@ -30,7 +30,7 @@ public class GameStage implements Observer {
 	Label dice4;
 	Label dice5;
 	Button rollDiceButton;
-
+	Stage primarystage;
 	public GameStage(PlayerController playerController) {
 		this.playerController = playerController;
 	}
@@ -45,7 +45,7 @@ public class GameStage implements Observer {
 
 		/* hier komt een dobbelstenen pane */
 		/* play button met een actionhandeler toevoegen voor dobbelenstenen te gooien */
-		Stage primarystage = new Stage();
+		primarystage = new Stage();
 		VBox root = addVBoxMain();
 		Scene scene = new Scene(root, 400, 400);
 		primarystage.setScene(scene);
@@ -92,8 +92,8 @@ public class GameStage implements Observer {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
+		// TODO wanner en hoe update 
+		
 	}
 
 	public void updateSteen(ArrayList<Die> dice) {
