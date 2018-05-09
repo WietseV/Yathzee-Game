@@ -16,16 +16,18 @@ public class Player {
 		this.name = name;
 	}
 
-	public  ArrayList<Die> getDice() {  // je krijgt een array terug van 6 dobbelstenen 
-		return dice.getDice();
-	}
+	
 
 	public void setDice(YahtzeeDice dice) {
 		this.dice = dice;
 	}
 
-	public void throwDice() {
+	/*public void throwDice() {
 		dice.generateDice();
-	}
+	}*/
+	
+	/*public  ArrayList<Die> getDice() {  // je krijgt een array terug van 6 dobbelstenen 
+	return dice.getDice();
+	}*/
 
 }
