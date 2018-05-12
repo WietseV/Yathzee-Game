@@ -31,6 +31,8 @@ public class GameStage implements Observer {
 	Label dice5;
 	Button rollDiceButton;
 	Stage primarystage;
+	YahtzeeDice dice;
+
 	public GameStage(PlayerController playerController) {
 		this.playerController = playerController;
 	}
@@ -46,6 +48,7 @@ public class GameStage implements Observer {
 		/* hier komt een dobbelstenen pane */
 		/* play button met een actionhandeler toevoegen voor dobbelenstenen te gooien */
 		primarystage = new Stage();
+		dice = new YahtzeeDice(); // create new dices for each stage.
 		VBox root = addVBoxMain();
 		Scene scene = new Scene(root, 400, 400);
 		primarystage.setScene(scene);
@@ -63,7 +66,7 @@ public class GameStage implements Observer {
 		rollDiceButton = new Button("Roll Dice");
 		vbox.getChildren().add(rollDiceButton);
 		rollDiceButton.setOnAction(new GameHandler());
-		HBox dobbelstenen = addDobbelstenen(); // dobbelstenen toevoegen 
+		HBox dobbelstenen = addDobbelstenen(); // dobbelstenen toevoegen
 		vbox.getChildren().add(dobbelstenen);
 		return vbox;
 	}
@@ -73,8 +76,8 @@ public class GameStage implements Observer {
 		box.setSpacing(5);
 		turn = new Label("De beurt is aan");
 		namePlayerTurn = new Label(playerController.getPlayerName());
-		//TODO de tekst nog aanpassen dat bij iedereen het zelfde staat. 
-		
+		// TODO de tekst nog aanpassen dat bij iedereen het zelfde staat.
+
 		box.getChildren().add(turn);
 		box.getChildren().add(namePlayerTurn);
 		// TODO methode aanmaken die laat zien aan wie het de beurt is.
@@ -83,30 +86,39 @@ public class GameStage implements Observer {
 
 	public HBox addDobbelstenen() {
 		HBox box = new HBox();
-		/*box.getChildren().add(dice1);
+		dice1 = new Label();
+		dice2 = new Label();
+		dice3 = new Label();
+		dice4 = new Label();
+		dice5 = new Label();
+
+		box.getChildren().add(dice1);
 		box.getChildren().add(dice2);
 		box.getChildren().add(dice3);
 		box.getChildren().add(dice4);
-		box.getChildren().add(dice5);*/ //<- deze code klopt niet. want de label is nog niet aangemaakt
-		//
-		// DEZE LABELS ZIJN LEEG IN HET BEGIN EN WORDEN NORMAAL PAS GESET ALS UPDATESTEEN WORD OPGEROEPN
+		box.getChildren().add(dice5);
+
+		// DEZE LABELS ZIJN LEEG IN HET BEGIN EN WORDEN NORMAAL PAS GESET ALS
+		// UPDATESTEEN WORD OPGEROEPN
 		return box;
 	}
 
 	@Override
 	public void update() {
-		// TODO wanner en hoe update 
-		
+		// TODO wanner en hoe update
+
 	}
 
-	public void updateSteen(ArrayList<Die> dice) {
-		// UPDATE STEEN	 wordt opgeroepen als er op de button word gepushed 
-		
-		/*this.dice1.setText(Integer.toString(dice.get(0).getNumber()));
-		this.dice2.setText(Integer.toString(dice.get(1).getNumber()));
-		this.dice3.setText(Integer.toString(dice.get(2).getNumber()));
-		this.dice4.setText(Integer.toString(dice.get(3).getNumber()));
-		this.dice5.setText(Integer.toString(dice.get(4).getNumber()));*/
+	public void updateSteen(YahtzeeDice dice) {
+		// UPDATE STEEN wordt opgeroepen als er op de button word gepushed
+
+		ArrayList<Die> diceList = dice.getDice();
+		this.dice1.setText(Integer.toString(diceList.get(0).getNumber()));
+		this.dice2.setText(Integer.toString(diceList.get(1).getNumber()));
+		this.dice3.setText(Integer.toString(diceList.get(2).getNumber()));
+		this.dice4.setText(Integer.toString(diceList.get(3).getNumber()));
+		this.dice5.setText(Integer.toString(diceList.get(4).getNumber()));
+
 		// TODO -> dit kan veel beter.. stel dat ik nu 7 stenen heb, moet ik weer een
 		// steen toevoegen.
 	}
@@ -115,16 +127,9 @@ public class GameStage implements Observer {
 
 		@Override
 		public void handle(ActionEvent event) {
-			// TODO eerst de stenen gooien. vb code die nu anders moet aangezien player geen eigen 
-			//	stenen heeft.
-			
-			// player.throwDice();
-			// ArrayLis<Die> dice = player.getDice();
-			// updateSteen(dice)
-			
-			// dit is hoe ik denk dat het er uit moet zien. 
-			// heb nu mijn
-
+						
+			dice.generateDice();
+			updateSteen(dice);
 		}
 
 	}

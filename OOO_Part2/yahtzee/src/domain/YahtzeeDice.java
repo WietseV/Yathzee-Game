@@ -25,6 +25,10 @@ public class YahtzeeDice {
 		dice.add(dieTree);
 		dice.add(dieFour);
 		dice.add(dieFive);
+		
+		for (Die die: dice) {
+			setStandaard(die);
+		}
 	}
 
 	public void generateDice() {
@@ -35,6 +39,10 @@ public class YahtzeeDice {
 
 	public ArrayList<Die> getDice() {
 		return dice;
+	}
+	
+	public void setStandaard(Die die) {
+		die.setNumber(1);
 	}
 	
 }
