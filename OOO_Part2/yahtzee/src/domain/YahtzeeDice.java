@@ -13,7 +13,20 @@ public class YahtzeeDice {
 	ArrayList<Die> dice = new ArrayList<Die>();
 
 	public YahtzeeDice() {
+		setDice();
+	}
 
+	public void ThrowDice() {
+		for (Die die : dice) {
+			die.throwDie();
+		}
+	}
+
+	public ArrayList<Die> getDice() {
+		return dice;
+	}
+	
+	private void setDice() {
 		Die dieOne = new Die();
 		Die dieTwo = new Die();
 		Die dieTree = new Die();
@@ -25,16 +38,6 @@ public class YahtzeeDice {
 		dice.add(dieTree);
 		dice.add(dieFour);
 		dice.add(dieFive);
-	}
-
-	public void generateDice() {
-		for (Die die : dice) {
-			die.throwDie();
-		}
-	}
-
-	public ArrayList<Die> getDice() {
-		return dice;
 	}
 	
 }

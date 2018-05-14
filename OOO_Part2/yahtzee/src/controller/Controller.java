@@ -16,6 +16,7 @@ public class Controller {
 	private GameFacade gameFacade = new GameFacade();
 	private TextInputDialog tid = new TextInputDialog();
 	private String name = "";
+	private boolean add;
 
 	public void start() {
 		ArrayList<PlayerController> playerConList = new ArrayList<PlayerController>();
@@ -35,14 +36,12 @@ public class Controller {
 		else break;
 		gameFacade.regPlayer(name);
 		
-		playerConList.add(new PlayerController(gameFacade, name));
+		playerConList.add(new PlayerController(gameFacade, gameFacade.createPlayer(name)));
 		
 		}
 		
 		for(PlayerController pc : playerConList) {
 			pc.startGame();
 		}
-		// Dit gaat aangepast moeten worden omdat het beter is om gewoon dat de controller zegt tegen facade, 
-		// ik ben klaar, begin maar. 
 	}
 }

@@ -7,13 +7,24 @@ import ui.Observer;
 public class GameFacade implements Subject{
 	
 	PlayerGroup playerGroup = new PlayerGroup();
+	YahtzeeDice yathzeeDice = new YahtzeeDice();
 	ArrayList<Observer> observerList = new ArrayList<Observer>();
 
 	public void regPlayer(String name){
 		playerGroup.add(name);
 	}
 
+	public void throwDice() {
+		yathzeeDice.ThrowDice();		
+	}
 	
+	public ArrayList<Die> getDice() {
+		return yathzeeDice.getDice();
+	}
+	
+	public String getActivePlayer() {
+		return playerGroup.getActivePlayer();
+	}
 	
 	@Override
 	public void add(Observer o) {
@@ -32,6 +43,10 @@ public class GameFacade implements Subject{
 		for(Observer o: observerList){
 			o.update();
 		}
+	}
+
+	public Player createPlayer(String name) {
+		return new Player(name);
 	}
 }
 
