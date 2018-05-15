@@ -1,20 +1,25 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import controller.PlayerController;
 import domain.Die;
 import domain.GameFacade;
 import domain.YahtzeeDice;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import scoring.Catagories;
 
 public class GameStage implements Observer {
 	/*
@@ -72,6 +77,8 @@ public class GameStage implements Observer {
 		HBox otherDice = keptDice;
 		vbox.getChildren().add(dice);
 		vbox.getChildren().add(otherDice);
+		ComboBox combo = makeDropDown();
+		vbox.getChildren().add(combo);
 		return vbox;
 	}
 
@@ -99,6 +106,13 @@ public class GameStage implements Observer {
 		box.getChildren().add(dice5); 
 		dice5.setOnAction(new SwitchHandler());
 		return box;
+	}
+	
+	public ComboBox makeDropDown(){
+		ComboBox<Catagories> cbxStatus = new ComboBox<>();
+		cbxStatus.setItems( FXCollections.observableArrayList( Catagories.values()));
+		cbxStatus.getSelectionModel().selectFirst();
+		return cbxStatus;
 	}
 	
 	public void addDiceToSecondRow(Button button) {
