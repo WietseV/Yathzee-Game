@@ -20,9 +20,7 @@ public class YahtzeeDice {
 
 	public void ThrowDice() {
 		for (Die die : dice) {
-			if(playableDice.contains(die)) {
-				die.throwDie();
-			}
+			die.throwDie();
 		}
 	}
 
@@ -42,11 +40,6 @@ public class YahtzeeDice {
 		dice.add(dieTree);
 		dice.add(dieFour);
 		dice.add(dieFive);
-		playableDice.add(dieOne);
-		playableDice.add(dieTwo);
-		playableDice.add(dieTree);
-		playableDice.add(dieFour);
-		playableDice.add(dieFive);
 	}
 	
 	public void keepDie(Die die) {
@@ -59,6 +52,7 @@ public class YahtzeeDice {
 		savedDice.remove(die);
 		playableDice.add(die);
 		die.setPlayable(true);
+
 	}
 
 }
