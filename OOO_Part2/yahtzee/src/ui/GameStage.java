@@ -1,16 +1,12 @@
 package ui;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import controller.PlayerController;
 import domain.Die;
 import domain.GameFacade;
 
-import domain.YahtzeeDice;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
