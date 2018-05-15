@@ -52,11 +52,13 @@ public class YahtzeeDice {
 	public void keepDie(Die die) {
 		playableDice.remove(die);
 		savedDice.add(die);
+		die.setPlayable(false);
 	}
 	
 	public void playWithDie(Die die) {
 		savedDice.remove(die);
 		playableDice.add(die);
+		die.setPlayable(true);
 	}
 
 }

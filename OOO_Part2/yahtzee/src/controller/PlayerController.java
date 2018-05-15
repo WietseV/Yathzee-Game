@@ -1,9 +1,6 @@
 package controller;
 
 import domain.GameFacade;
-import domain.Player;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import ui.GameStage;
 
 public class PlayerController {
@@ -12,9 +9,9 @@ public class PlayerController {
 	private String playerName = new String();
 	GameStage gameStage;
 
-	public PlayerController(GameFacade gameFacade, Player player) {
+	public PlayerController(GameFacade gameFacade, String name) {
 		this.gameFacade = gameFacade;
-		this.playerName = player.getName();
+		this.playerName = name;
 	}
 
 	public GameFacade getGameFacade() {

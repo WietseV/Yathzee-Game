@@ -36,7 +36,7 @@ public class Controller {
 		else break;
 		gameFacade.regPlayer(name);
 		
-		playerConList.add(new PlayerController(gameFacade, gameFacade.createPlayer(name)));
+		playerConList.add(new PlayerController(gameFacade, name));
 		
 		}
 		

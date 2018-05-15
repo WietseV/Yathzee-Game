@@ -11,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -28,7 +29,7 @@ public class GameStage implements Observer {
 	Button rollDiceButton;
 	Stage primarystage;
 	private GameFacade game;
-	HBox keptDice= new HBox();
+	GridPane dicepane = new GridPane();
 	
 	public GameStage(PlayerController playerController) {
 		this.playerController = playerController;
@@ -64,10 +65,10 @@ public class GameStage implements Observer {
 		rollDiceButton = new Button("Roll Dice");
 		vbox.getChildren().add(rollDiceButton);
 		rollDiceButton.setOnAction(new GameHandler());
-		HBox dice = addDice(); 
-		HBox otherDice = keptDice;
-		vbox.getChildren().add(dice);
-		vbox.getChildren().add(otherDice);
+		dicepane = addDice(); 
+//		HBox otherDice = keptDice;
+		vbox.getChildren().add(dicepane);
+//		vbox.getChildren().add(otherDice);
 		return vbox;
 	}
 
@@ -95,23 +96,31 @@ public class GameStage implements Observer {
 		buttons.add(dice5);
 	}
 
-	public HBox addDice() {
-		HBox box = new HBox();
-		for (Button button: buttons) {
-			box.getChildren().add(button);
-			button.setOnAction(new SwitchHandler());
+	public GridPane addDice() {
+		GridPane box = new GridPane();
+		for (int i = 0; i < buttons.size();i++) {
+			box.add(buttons.get(i), i, 1 );
+			buttons.get(i).setOnAction(new SwitchHandler());
 		}
 		return box;
 	}
-	
-	public void addDiceToSecondRow(Button button) {
-		keptDice.getChildren().add(button);
-	}
 
+
+	public void setDicePositions() {
+		ArrayList<Die> dice = game.getDice();
+		for (int i = 0; i < buttons.size();i++) {
+			if(!dice.get(i).isPlayable()) {
+				dicepane.getChildren().remove(buttons.get(i));
+				dicepane.add(buttons.get(i), i, 2);
+			}
+		}
+	}
+	
 	@Override
 	public void update() {
 		ArrayList<Die> dice = game.getDice();
 		showDice(dice);
+		setDicePositions();
 		
 	}
 
@@ -135,11 +144,9 @@ public class GameStage implements Observer {
 
 		@Override
 		public void handle(ActionEvent event) {
-			addDiceToSecondRow((Button)event.getSource());
 			ArrayList<Die> dice = game.getDice();
 			int index = buttons.indexOf((Button)event.getSource());
 			game.keepDie(dice.get(index));
-
 		}
 
 	}

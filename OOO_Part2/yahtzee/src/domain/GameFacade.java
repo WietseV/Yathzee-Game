@@ -29,7 +29,7 @@ public class GameFacade implements Subject{
 	
 	public void keepDie(Die die) {
 		yathzeeDice.keepDie(die);
-		
+		notiffy();
 	}
 	
 	public void PlayWithDie(Die die) {
