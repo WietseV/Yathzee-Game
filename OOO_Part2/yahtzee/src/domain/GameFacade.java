@@ -26,6 +26,14 @@ public class GameFacade implements Subject{
 		return playerGroup.getActivePlayer();
 	}
 	
+	public void keepDie(Die die) {
+		yathzeeDice.keepDie(die);
+	}
+	
+	public void PlayWithDie(Die die) {
+		yathzeeDice.playWithDie(die);
+	}
+	
 	@Override
 	public void add(Observer o) {
 		observerList.add(o);

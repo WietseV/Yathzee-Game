@@ -33,6 +33,7 @@ public class GameStage implements Observer {
 	Button rollDiceButton;
 	Stage primarystage;
 	private GameFacade game;
+	HBox keptDice= new HBox();
 	
 	public GameStage(PlayerController playerController) {
 		this.playerController = playerController;
@@ -68,7 +69,9 @@ public class GameStage implements Observer {
 		vbox.getChildren().add(rollDiceButton);
 		rollDiceButton.setOnAction(new GameHandler());
 		HBox dice = addDice(); 
+		HBox otherDice = keptDice;
 		vbox.getChildren().add(dice);
+		vbox.getChildren().add(otherDice);
 		return vbox;
 	}
 
@@ -86,17 +89,20 @@ public class GameStage implements Observer {
 	public HBox addDice() {
 		HBox box = new HBox();
 		box.getChildren().add(dice1);
+		dice1.setOnAction(new SwitchHandler());
 		box.getChildren().add(dice2);
+		dice2.setOnAction(new SwitchHandler());
 		box.getChildren().add(dice3);
+		dice3.setOnAction(new SwitchHandler());
 		box.getChildren().add(dice4);
+		dice4.setOnAction(new SwitchHandler());
 		box.getChildren().add(dice5); 
+		dice5.setOnAction(new SwitchHandler());
 		return box;
 	}
 	
-	public HBox addDiceToSecondRow(Button button) {
-		HBox box = new HBox();
-		box.getChildren().add(button);
-		return box;
+	public void addDiceToSecondRow(Button button) {
+		keptDice.getChildren().add(button);
 	}
 
 	@Override
@@ -121,19 +127,19 @@ public class GameStage implements Observer {
 
 		@Override
 		public void handle(ActionEvent event) {
-			// TODO eerst de stenen gooien. vb code die nu anders moet aangezien player geen eigen 
-			//	stenen heeft.
-			
 			game.throwDice();
 			ArrayList<Die> dice = game.getDice();
 			updateDice(dice);
 			game.notiffy();
-			// player.throwDice();
-			// ArrayLis<Die> dice = player.getDice();
-			// updateSteen(dice)
-			
-			// dit is hoe ik denk dat het er uit moet zien. 
-			// heb nu mijn
+		}
+
+	}
+	class SwitchHandler implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent event) {
+			addDiceToSecondRow((Button)event.getSource());
+			game.notiffy();
 
 		}
 
