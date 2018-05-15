@@ -15,7 +15,8 @@ public class GameFacade implements Subject{
 	}
 
 	public void throwDice() {
-		yathzeeDice.ThrowDice();		
+		yathzeeDice.ThrowDice();	
+		notiffy();
 	}
 	
 	public ArrayList<Die> getDice() {
@@ -28,6 +29,7 @@ public class GameFacade implements Subject{
 	
 	public void keepDie(Die die) {
 		yathzeeDice.keepDie(die);
+		
 	}
 	
 	public void PlayWithDie(Die die) {
