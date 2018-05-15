@@ -6,12 +6,9 @@ import java.util.List;
 import controller.PlayerController;
 import domain.Die;
 import domain.GameFacade;
-<<<<<<< HEAD
 import domain.YahtzeeDice;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-=======
->>>>>>> master
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -38,7 +35,7 @@ public class GameStage implements Observer {
 	Stage primarystage;
 	private GameFacade game;
 	HBox keptDice= new HBox();
-	
+	Button endTurnButton;
 	public GameStage(PlayerController playerController) {
 		this.playerController = playerController;
 		this.game = playerController.getGameFacade();
@@ -77,8 +74,12 @@ public class GameStage implements Observer {
 		HBox otherDice = keptDice;
 		vbox.getChildren().add(dice);
 		vbox.getChildren().add(otherDice);
-		ComboBox combo = makeDropDown();
+		ComboBox<Catagories> combo = makeDropDown();
 		vbox.getChildren().add(combo);
+		
+		endTurnButton = new Button("ok");
+		endTurnButton.setOnAction(new EndTurn());
+		vbox.getChildren().add(endTurnButton);
 		return vbox;
 	}
 
@@ -115,7 +116,7 @@ public class GameStage implements Observer {
 		return box;
 	}
 	
-	public ComboBox makeDropDown(){
+	public ComboBox<Catagories> makeDropDown(){
 		ComboBox<Catagories> cbxStatus = new ComboBox<>();
 		cbxStatus.setItems( FXCollections.observableArrayList( Catagories.values()));
 		cbxStatus.getSelectionModel().selectFirst();
@@ -125,7 +126,7 @@ public class GameStage implements Observer {
 	public void addDiceToSecondRow(Button button) {
 		keptDice.getChildren().add(button);
 	}
-
+	
 	@Override
 	public void update() {
 		ArrayList<Die> dice = game.getDice();
@@ -160,5 +161,18 @@ public class GameStage implements Observer {
 
 		}
 
+	}
+	
+	class EndTurn implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			
+			//TODO 
+			//1. Neem uw combobox value
+			//2.Krijg uw strategy score //Story5
+			//
+		}
+		
 	}
 }
