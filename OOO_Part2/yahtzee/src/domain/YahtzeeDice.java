@@ -11,7 +11,8 @@ public class YahtzeeDice {
 	// yathzeedice voor elke worp of gewoon dat de stenen worden aangepast.
 	// ik ga het nu bij het 2e houden. stenen worden aangepast.
 	ArrayList<Die> dice = new ArrayList<Die>();
-	ArrayList<Die> keptDice = new ArrayList<Die>();
+	ArrayList<Die> savedDice = new ArrayList<Die>();
+	ArrayList<Die> playableDice = new ArrayList<Die>();
 
 	public YahtzeeDice() {
 		setDice();
@@ -19,7 +20,9 @@ public class YahtzeeDice {
 
 	public void ThrowDice() {
 		for (Die die : dice) {
-			die.throwDie();
+			if(playableDice.contains(die)) {
+				die.throwDie();
+			}
 		}
 	}
 
@@ -39,16 +42,21 @@ public class YahtzeeDice {
 		dice.add(dieTree);
 		dice.add(dieFour);
 		dice.add(dieFive);
+		playableDice.add(dieOne);
+		playableDice.add(dieTwo);
+		playableDice.add(dieTree);
+		playableDice.add(dieFour);
+		playableDice.add(dieFive);
 	}
 	
 	public void keepDie(Die die) {
-		dice.remove(die);
-		keptDice.add(die);
+		playableDice.remove(die);
+		savedDice.add(die);
 	}
 	
 	public void playWithDie(Die die) {
-		keptDice.remove(die);
-		dice.add(die);
+		savedDice.remove(die);
+		playableDice.add(die);
 	}
 
 }

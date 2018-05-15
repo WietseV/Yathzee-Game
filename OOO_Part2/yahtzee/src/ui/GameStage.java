@@ -30,16 +30,12 @@ public class GameStage implements Observer {
 	PlayerController playerController;
 	Label namePlayerTurn;
 	Label turn;
-	Button dice1 = new Button("");
-	Button dice2= new Button("");
-	Button dice3= new Button("");
-	Button dice4= new Button("");
-	Button dice5= new Button("");
+	ArrayList<Button> buttons = new ArrayList<Button>();
 	Button rollDiceButton;
 	Stage primarystage;
 	private GameFacade game;
 	HBox keptDice= new HBox();
-	
+	Button endTurnButton;
 	public GameStage(PlayerController playerController) {
 		this.playerController = playerController;
 		this.game = playerController.getGameFacade();
@@ -56,6 +52,7 @@ public class GameStage implements Observer {
 		/* hier komt een dobbelstenen pane */
 		/* play button met een actionhandeler toevoegen voor dobbelenstenen te gooien */
 		primarystage = new Stage();
+		initiateButtons();
 		VBox root = addVBoxMain();
 		Scene scene = new Scene(root, 400, 400);
 		primarystage.setScene(scene);
@@ -77,8 +74,12 @@ public class GameStage implements Observer {
 		HBox otherDice = keptDice;
 		vbox.getChildren().add(dice);
 		vbox.getChildren().add(otherDice);
-		ComboBox combo = makeDropDown();
+		ComboBox<Catagories> combo = makeDropDown();
 		vbox.getChildren().add(combo);
+		
+		endTurnButton = new Button("ok");
+		endTurnButton.setOnAction(new EndTurn());
+		vbox.getChildren().add(endTurnButton);
 		return vbox;
 	}
 
@@ -92,23 +93,30 @@ public class GameStage implements Observer {
 		box.getChildren().add(namePlayerTurn);
 		return box;
 	}
+	
+	public void initiateButtons() {
+		Button dice1 = new Button("");
+		Button dice2= new Button("");
+		Button dice3= new Button("");
+		Button dice4= new Button("");
+		Button dice5= new Button("");
+		buttons.add(dice1);
+		buttons.add(dice2);
+		buttons.add(dice3);
+		buttons.add(dice4);
+		buttons.add(dice5);
+	}
 
 	public HBox addDice() {
 		HBox box = new HBox();
-		box.getChildren().add(dice1);
-		dice1.setOnAction(new SwitchHandler());
-		box.getChildren().add(dice2);
-		dice2.setOnAction(new SwitchHandler());
-		box.getChildren().add(dice3);
-		dice3.setOnAction(new SwitchHandler());
-		box.getChildren().add(dice4);
-		dice4.setOnAction(new SwitchHandler());
-		box.getChildren().add(dice5); 
-		dice5.setOnAction(new SwitchHandler());
+		for (Button button: buttons) {
+			box.getChildren().add(button);
+			button.setOnAction(new SwitchHandler());
+		}
 		return box;
 	}
 	
-	public ComboBox makeDropDown(){
+	public ComboBox<Catagories> makeDropDown(){
 		ComboBox<Catagories> cbxStatus = new ComboBox<>();
 		cbxStatus.setItems( FXCollections.observableArrayList( Catagories.values()));
 		cbxStatus.getSelectionModel().selectFirst();
@@ -118,23 +126,18 @@ public class GameStage implements Observer {
 	public void addDiceToSecondRow(Button button) {
 		keptDice.getChildren().add(button);
 	}
-
+	
 	@Override
 	public void update() {
 		ArrayList<Die> dice = game.getDice();
-		updateDice(dice);
+		showDice(dice);
 		
 	}
 
-	public void updateDice(ArrayList<Die> dice) {
-		// UPDATE STEEN	 wordt opgeroepen als er op de button word gepushed 
-		this.dice1.setText(Integer.toString(dice.get(0).getNumber()));
-		this.dice2.setText(Integer.toString(dice.get(1).getNumber()));
-		this.dice3.setText(Integer.toString(dice.get(2).getNumber()));
-		this.dice4.setText(Integer.toString(dice.get(3).getNumber()));
-		this.dice5.setText(Integer.toString(dice.get(4).getNumber()));
-		// TODO -> dit kan veel beter.. stel dat ik nu 7 stenen heb, moet ik weer een
-		// steen toevoegen.
+	public void showDice(ArrayList<Die> dice) {
+		for (int i = 0; i < buttons.size();i++) {
+			buttons.get(i).setText(Integer.toString(dice.get(i).getNumber()));
+		}
 	}
 
 	class GameHandler implements EventHandler<ActionEvent> {
@@ -143,8 +146,7 @@ public class GameStage implements Observer {
 		public void handle(ActionEvent event) {
 			game.throwDice();
 			ArrayList<Die> dice = game.getDice();
-			updateDice(dice);
-			game.notiffy();
+			showDice(dice);
 		}
 
 	}
@@ -153,9 +155,24 @@ public class GameStage implements Observer {
 		@Override
 		public void handle(ActionEvent event) {
 			addDiceToSecondRow((Button)event.getSource());
-			game.notiffy();
+			ArrayList<Die> dice = game.getDice();
+			int index = buttons.indexOf((Button)event.getSource());
+			game.keepDie(dice.get(index));
 
 		}
 
+	}
+	
+	class EndTurn implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent event) {
+			
+			//TODO 
+			//1. Neem uw combobox value
+			//2.Krijg uw strategy score //Story5
+			//
+		}
+		
 	}
 }
