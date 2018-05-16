@@ -10,8 +10,8 @@ public class GameFacade implements Subject{
 	YahtzeeDice yathzeeDice = new YahtzeeDice();
 	ArrayList<Observer> observerList = new ArrayList<Observer>();
 
-	public void regPlayer(String name){
-		playerGroup.add(name);
+	private void regPlayer(Player player){
+		playerGroup.add(player);
 	}
 
 	public void throwDice() {
@@ -55,7 +55,9 @@ public class GameFacade implements Subject{
 	}
 
 	public Player createPlayer(String name) {
-		return new Player(name);
+		Player player = new Player(name);
+		regPlayer(player);
+		return player;
 	}
 }
 

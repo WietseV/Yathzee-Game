@@ -1,17 +1,18 @@
 package controller;
 
 import domain.GameFacade;
+import domain.Player;
 import ui.GameStage;
 
 public class PlayerController {
 	
 	private GameFacade gameFacade = new GameFacade();
-	private String playerName = new String();
+	private Player player;
 	GameStage gameStage;
 
-	public PlayerController(GameFacade gameFacade, String name) {
+	public PlayerController(GameFacade gameFacade, Player player) {
 		this.gameFacade = gameFacade;
-		this.playerName = name;
+		this.player = player;
 	}
 
 	public GameFacade getGameFacade() {
@@ -20,7 +21,7 @@ public class PlayerController {
 	}
 
 	public String getPlayerName() {
-		return playerName;
+		return player.getName();
 	}
 
 	public void startGame() {

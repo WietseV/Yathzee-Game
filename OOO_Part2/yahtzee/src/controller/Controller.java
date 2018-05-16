@@ -34,9 +34,8 @@ public class Controller {
 			name = result.get();
 		}
 		else break;
-		gameFacade.regPlayer(name);
-		
-		playerConList.add(new PlayerController(gameFacade, name));
+		if (name == "") break;
+		playerConList.add(new PlayerController(gameFacade, gameFacade.createPlayer(name)));
 		
 		}
 		
