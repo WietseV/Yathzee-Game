@@ -36,8 +36,8 @@ public class Controller {
 		else break;
 		if (name.equals("")) break;
 		
-		playerConList.add(new PlayerController(gameFacade, gameFacade.createPlayer(name)));
-		
+		playerConList.add(new PlayerController(gameFacade, name));
+		gameFacade.createPlayer(name);
 		}
 		
 		for(PlayerController pc : playerConList) {

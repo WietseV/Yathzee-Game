@@ -15,6 +15,11 @@ public class GameFacade implements Subject{
 	int groupsize ;
 	int turn;
 	Player turnToPlayer;
+	
+	private void regPlayer(Player player) {
+		playerGroup.add(player);
+	}
+	
 	// TODO add PLayCon turn player 
 	public void regPlayer(Player player, PlayerController playCon){
 		playerGroup.add(player);
@@ -22,7 +27,8 @@ public class GameFacade implements Subject{
 	}
 
 	public void throwDice() {
-		yathzeeDice.ThrowDice();		
+		yathzeeDice.ThrowDice();
+		notiffy();
 	}
 	public void setNextPlayerTurn() {
 		groupsize = playerGroup.getList().size();
@@ -79,11 +85,12 @@ public class GameFacade implements Subject{
 		}
 	}
 
-//	public Player createPlayer(String name) {
-//		Player player = new Player(name);
-//		regPlayer(player);
-//		return player;
-//	}
+	public Player createPlayer(String name) {
+		Player player = new Player(name);
+		regPlayer(player);
+		return player;
+	}
+
 }
 
 
