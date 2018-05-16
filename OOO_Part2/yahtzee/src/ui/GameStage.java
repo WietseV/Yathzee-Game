@@ -84,6 +84,8 @@ public class GameStage implements Observer {
 		return box;
 	}
 	
+	
+	
 	public void initiateButtons() {
 		Button dice1 = new Button("");
 		Button dice2= new Button("");

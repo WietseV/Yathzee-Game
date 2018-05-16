@@ -20,7 +20,8 @@ public class GameFacade implements Subject{
 	}
 
 	public void throwDice() {
-		yathzeeDice.ThrowDice();		
+		yathzeeDice.ThrowDice();
+		notiffy();
 	}
 	public void playerTurn() {
 		groupsize = playerGroup.getList().size();
@@ -47,6 +48,7 @@ public class GameFacade implements Subject{
 	
 	public void PlayWithDie(Die die) {
 		yathzeeDice.playWithDie(die);
+		notiffy();
 	}
 	
 	@Override

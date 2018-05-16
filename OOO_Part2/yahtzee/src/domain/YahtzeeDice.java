@@ -20,7 +20,7 @@ public class YahtzeeDice {
 
 	public void ThrowDice() {
 		for (Die die : dice) {
-			die.throwDie();
+			if(die.isPlayable()) die.throwDie();
 		}
 	}
 
