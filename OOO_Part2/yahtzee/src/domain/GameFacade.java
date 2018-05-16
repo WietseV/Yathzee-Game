@@ -18,7 +18,8 @@ public class GameFacade implements Subject{
 	}
 
 	public void throwDice() {
-		yathzeeDice.ThrowDice();		
+		yathzeeDice.ThrowDice();
+		notiffy();
 	}
 	public void turn() {
 		//TODO zeggen wiens beurt het is. 
@@ -44,6 +45,7 @@ public class GameFacade implements Subject{
 	
 	public void PlayWithDie(Die die) {
 		yathzeeDice.playWithDie(die);
+		notiffy();
 	}
 	
 	@Override
