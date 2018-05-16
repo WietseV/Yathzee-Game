@@ -6,7 +6,7 @@ import ui.GameStage;
 
 public class PlayerController {
 	
-	private GameFacade gameFacade = new GameFacade();
+	private GameFacade gameFacade;
 	private Player player;
 	GameStage gameStage;
 
