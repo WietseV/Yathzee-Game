@@ -12,6 +12,8 @@ public class GameFacade implements Subject{
 	YahtzeeDice yathzeeDice = new YahtzeeDice();
 	ArrayList<Observer> observerList = new ArrayList<Observer>();
 	Hashtable<Player, PlayerController> gamePains = new Hashtable<Player, PlayerController>();
+	int groupsize ;
+	int beurt;
 	
 	private void regPlayer(Player player){
 		playerGroup.add(player);
@@ -20,8 +22,9 @@ public class GameFacade implements Subject{
 	public void throwDice() {
 		yathzeeDice.ThrowDice();		
 	}
-	public void turn() {
-		//TODO zeggen wiens beurt het is. 
+	public void playerTurn() {
+		groupsize = playerGroup.getList().size();
+		
 	}
 	
 	public void setStageCorrectly() {
