@@ -15,7 +15,6 @@ public class PlayerController {
 	}
 
 	public GameFacade getGameFacade() {
-		
 		return gameFacade;
 	}
 
