@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class Controller {
 
 	private GameFacade gameFacade = new GameFacade();
-	private TextInputDialog tid = new TextInputDialog();
+
 	private String name = "";
 	private boolean add;
 
@@ -34,9 +34,9 @@ public class Controller {
 			name = result.get();
 		}
 		else break;
-		gameFacade.regPlayer(name);
+		if (name.equals("")) break;
 		
-		playerConList.add(new PlayerController(gameFacade, name));
+		playerConList.add(new PlayerController(gameFacade, gameFacade.createPlayer(name)));
 		
 		}
 		

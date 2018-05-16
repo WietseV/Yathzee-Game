@@ -1,7 +1,9 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
+import controller.PlayerController;
 import ui.Observer;
 
 public class GameFacade implements Subject{
@@ -9,13 +11,22 @@ public class GameFacade implements Subject{
 	PlayerGroup playerGroup = new PlayerGroup();
 	YahtzeeDice yathzeeDice = new YahtzeeDice();
 	ArrayList<Observer> observerList = new ArrayList<Observer>();
-
-	public void regPlayer(String name){
-		playerGroup.add(name);
+	Hashtable<Player, PlayerController> gamePains = new Hashtable<Player, PlayerController>();
+	
+	private void regPlayer(Player player){
+		playerGroup.add(player);
 	}
 
 	public void throwDice() {
 		yathzeeDice.ThrowDice();		
+	}
+	public void turn() {
+		//TODO zeggen wiens beurt het is. 
+	}
+	
+	public void setStageCorrectly() {
+		// deze gaat alle buttons invisile zetten bij elke juist stage/ player controller 
+		// TODO implementeren 
 	}
 	
 	public ArrayList<Die> getDice() {
@@ -55,7 +66,9 @@ public class GameFacade implements Subject{
 	}
 
 	public Player createPlayer(String name) {
-		return new Player(name);
+		Player player = new Player(name);
+		regPlayer(player);
+		return player;
 	}
 }
 
