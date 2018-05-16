@@ -13,24 +13,34 @@ public class GameFacade implements Subject{
 	ArrayList<Observer> observerList = new ArrayList<Observer>();
 	Hashtable<Player, PlayerController> gamePains = new Hashtable<Player, PlayerController>();
 	int groupsize ;
-	int beurt;
-	
-	private void regPlayer(Player player){
+	int turn;
+	Player turnToPlayer;
+	// TODO add PLayCon turn player 
+	public void regPlayer(Player player, PlayerController playCon){
 		playerGroup.add(player);
+		setStageCorrectly(player, playCon);
 	}
 
 	public void throwDice() {
-		yathzeeDice.ThrowDice();
-		notiffy();
+		yathzeeDice.ThrowDice();		
 	}
-	public void playerTurn() {
+	public void setNextPlayerTurn() {
 		groupsize = playerGroup.getList().size();
+		turn ++;
+		turnToPlayer = playerGroup.getList().get(turn%groupsize);
+	}
+	
+	public void getNextPlayerPlain() {
+		setNextPlayerTurn();
+		PlayerController playcon = gamePains.get(turnToPlayer);
+		
 		
 	}
 	
-	public void setStageCorrectly() {
+	public void setStageCorrectly(Player player, PlayerController playCon) {
 		// deze gaat alle buttons invisile zetten bij elke juist stage/ player controller 
 		// TODO implementeren 
+		gamePains.put(player, playCon);
 	}
 	
 	public ArrayList<Die> getDice() {
@@ -48,7 +58,6 @@ public class GameFacade implements Subject{
 	
 	public void PlayWithDie(Die die) {
 		yathzeeDice.playWithDie(die);
-		notiffy();
 	}
 	
 	@Override
@@ -70,11 +79,11 @@ public class GameFacade implements Subject{
 		}
 	}
 
-	public Player createPlayer(String name) {
-		Player player = new Player(name);
-		regPlayer(player);
-		return player;
-	}
+//	public Player createPlayer(String name) {
+//		Player player = new Player(name);
+//		regPlayer(player);
+//		return player;
+//	}
 }
 
 
