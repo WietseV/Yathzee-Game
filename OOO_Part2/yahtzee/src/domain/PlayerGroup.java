@@ -20,9 +20,15 @@ public class PlayerGroup {
 	}
 	
 	public Player getNextPlayer() {
-		Player player = playerList.get(currentActivePlayer);
-		currentActivePlayer++;
-		return player;
+		if (currentActivePlayer < playerList.size()) {
+			currentActivePlayer++;
+			Player player = playerList.get(currentActivePlayer);
+			return player;
+		} else {
+			currentActivePlayer = 0;
+			Player player = playerList.get(currentActivePlayer);
+			return player;
+		}
 	}
 
 	public String getActivePlayer() {

@@ -18,36 +18,22 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class GameStage implements Observer {
-	/*
-	 * Aangezien de gamestage hetgene is wat moet update als een andere speler gooit
-	 * wordt dit de observer. De subject is dan game. Denk ik. of misschien wel
-	 * player controller. dit moet ik nog beter bekijken.
-	 */
-	PlayerController playerController;
-	Label namePlayerTurn;
-	Label turn;
-	ArrayList<Button> buttons = new ArrayList<Button>();
-	Button rollDiceButton;
-	Stage primarystage;
+
+	private PlayerController playerController;
 	private GameFacade game;
+	private Stage primarystage = new Stage();
+	private Button rollDiceButton = new Button("Roll Dice");
+	private Label namePlayerTurn;
+	private Label turn = new Label("De beurt is aan");
+	private ArrayList<Button> buttons = new ArrayList<Button>();
 	GridPane dicepane = new GridPane();
-	
+
 	public GameStage(PlayerController playerController) {
 		this.playerController = playerController;
 		this.game = playerController.getGameFacade();
 	}
-	/*
-	 * Ik gebruik een vbox zodat alle elementen onder elkaar komen en ik steek er
-	 * een hbox tussen zodat twee labels langs elkaar staan
-	 */
-	// TODO scene en stage aanmaken hehe
-	// ik weet niet hoe alles werkt
 
 	public void show() {
-
-		/* hier komt een dobbelstenen pane */
-		/* play button met een actionhandeler toevoegen voor dobbelenstenen te gooien */
-		primarystage = new Stage();
 		initiateButtons();
 		VBox root = addVBoxMain();
 		Scene scene = new Scene(root, 400, 400);
@@ -63,74 +49,58 @@ public class GameStage implements Observer {
 		vbox.setSpacing(8);
 		HBox hBox = addHboxTurn();
 		vbox.getChildren().add(hBox);
-		rollDiceButton = new Button("Roll Dice");
 		vbox.getChildren().add(rollDiceButton);
 		rollDiceButton.setOnAction(new GameHandler());
-		dicepane = addDice(); 
-//		HBox otherDice = keptDice;
+		dicepane = addDice();
 		vbox.getChildren().add(dicepane);
-//		vbox.getChildren().add(otherDice);
 		return vbox;
 	}
 
 	public HBox addHboxTurn() {
 		HBox box = new HBox();
 		box.setSpacing(5);
-		turn = new Label("De beurt is aan");
 		namePlayerTurn = new Label(game.getActivePlayer());
-		
 		box.getChildren().add(turn);
 		box.getChildren().add(namePlayerTurn);
 		return box;
 	}
-	
-	
-	
+
 	public void initiateButtons() {
-		Button dice1 = new Button("");
-		Button dice2= new Button("");
-		Button dice3= new Button("");
-		Button dice4= new Button("");
-		Button dice5= new Button("");
-		buttons.add(dice1);
-		buttons.add(dice2);
-		buttons.add(dice3);
-		buttons.add(dice4);
-		buttons.add(dice5);
+		for (int i = 0; i < game.getAMOUNT_OF_DICE(); i++) {
+			buttons.add(new Button(""));
+		}
 	}
 
 	public GridPane addDice() {
 		GridPane box = new GridPane();
-		for (int i = 0; i < buttons.size();i++) {
-			box.add(buttons.get(i), i, 1 );
+		for (int i = 0; i < buttons.size(); i++) {
+			box.add(buttons.get(i), i, 1);
 			buttons.get(i).setOnAction(new SwitchHandler());
 		}
 		return box;
 	}
 
-
 	public void setDicePositions() {
 		ArrayList<Die> dice = game.getDice();
-		for (int i = 0; i < buttons.size();i++) {
-			if(!dice.get(i).isPlayable()) {
+		for (int i = 0; i < buttons.size(); i++) {
+			if (!dice.get(i).isPlayable()) {
 				dicepane.getChildren().remove(buttons.get(i));
 				dicepane.add(buttons.get(i), i, 2);
 			}
 		}
 	}
-	
+
+	public void showDice(ArrayList<Die> dice) {
+		for (int i = 0; i < buttons.size(); i++) {
+			buttons.get(i).setText(Integer.toString(dice.get(i).getNumber()));
+		}
+	}
+
 	@Override
 	public void update() {
 		ArrayList<Die> dice = game.getDice();
 		showDice(dice);
 		setDicePositions();
-		
-	}
-
-	public void showDice(ArrayList<Die> dice) {
-		for (int i = 0; i < buttons.size();i++) {
-			buttons.get(i).setText(Integer.toString(dice.get(i).getNumber()));
-		}
 	}
 
 	class GameHandler implements EventHandler<ActionEvent> {
@@ -141,16 +111,15 @@ public class GameStage implements Observer {
 			ArrayList<Die> dice = game.getDice();
 			showDice(dice);
 		}
-
 	}
+
 	class SwitchHandler implements EventHandler<ActionEvent> {
 
 		@Override
 		public void handle(ActionEvent event) {
 			ArrayList<Die> dice = game.getDice();
-			int index = buttons.indexOf((Button)event.getSource());
+			int index = buttons.indexOf((Button) event.getSource());
 			game.keepDie(dice.get(index));
 		}
-
 	}
 }

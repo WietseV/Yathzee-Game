@@ -4,10 +4,16 @@ import domain.GameFacade;
 import ui.GameStage;
 
 public class PlayerController {
-	
+
 	private GameFacade gameFacade;
 	private String player;
-	GameStage gameStage;
+	private GameStage gameStage;
+
+	public void startGame() {
+		this.gameStage = new GameStage(this);
+		gameFacade.add(gameStage);
+		gameStage.show();
+	}
 
 	public PlayerController(GameFacade gameFacade, String name) {
 		this.gameFacade = gameFacade;
@@ -22,9 +28,4 @@ public class PlayerController {
 		return player;
 	}
 
-	public void startGame() {
-		this.gameStage = new GameStage(this);
-		gameFacade.add(gameStage);
-		gameStage.show();
-	}
 }
