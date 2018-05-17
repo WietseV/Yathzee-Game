@@ -19,26 +19,25 @@ public class GameFacade implements Subject {
 	Player turnToPlayer;
 
 	// TODO add PLayCon turn player
-	public void regPlayer(Player player, PlayerController playCon) {
+	public void regPlayer(String name, PlayerController playCon) {
+		Player player = new Player(name);
 		playerGroup.add(player);
-		setStageCorrectly(player, playCon);
+		addPlayerAndPlaycon(player, playCon);
 	}
 
-	public void setNextPlayerTurn() {
-		groupsize = playerGroup.getList().size();
-		turn++;
-		turnToPlayer = playerGroup.getList().get(turn % groupsize);
-	}
-
-	public void getNextPlayerPlain() {
+	public void setStageCorrectly(Player player) {
 		// setNextPlayerTurn();
 		// de getNextPlayer bestond ql dus ge kunt die gewoon gebruiken
-		turnToPlayer = playerGroup.getNextPlayer();
+		// turnToPlayer = playerGroup.getNextPlayer();
 		// PlayerController playcon = gamePains.get(turnToPlayer);
 		// geen idee wa ge hiermee van plan waart dus ff in commentaar gezet
+		for (Observer o: observerList) {
+			
+		}
+		PlayerController playcon = gamePains.get(player);
 	}
 
-	public void setStageCorrectly(Player player, PlayerController playCon) {
+	public void addPlayerAndPlaycon(Player player, PlayerController playCon) {
 		// deze gaat alle buttons invisible zetten bij elke juist stage/ player
 		// controller
 		// TODO implementeren
@@ -68,10 +67,24 @@ public class GameFacade implements Subject {
 		return yathzeeDice.getDice();
 	}
 
-	public String getActivePlayer() {
+	public Player getActivePlayer() {
 		return playerGroup.getActivePlayer();
 	}
 
+	public String getActivePlayerName() {
+		return playerGroup.getActivePlayerName();
+	}
+
+	public void nextPlayerTurn() {
+		// deze functie moet alle stage disable 
+		// en dan van de juiste speler visible maken 
+		playerGroup.setNextPlayer();
+		Player player = getActivePlayer();
+		setStageCorrectly(player);
+	}
+	public void callCulatedScore() {
+		
+	}
 	public void keepDie(Die die) {
 		yathzeeDice.keepDie(die);
 		notiffy();

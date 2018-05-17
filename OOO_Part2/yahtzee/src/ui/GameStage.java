@@ -5,17 +5,19 @@ import java.util.ArrayList;
 import controller.PlayerController;
 import domain.Die;
 import domain.GameFacade;
-
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import scoring.Catagories;
 
 public class GameStage implements Observer {
 
@@ -27,6 +29,9 @@ public class GameStage implements Observer {
 	private Label turn = new Label("De beurt is aan");
 	private ArrayList<Button> buttons = new ArrayList<Button>();
 	GridPane dicepane = new GridPane();
+	private Button endTurnButton;
+	private ComboBox<Catagories> combo;
+	
 
 	public GameStage(PlayerController playerController) {
 		this.playerController = playerController;
@@ -36,7 +41,7 @@ public class GameStage implements Observer {
 	public void show() {
 		initiateButtons();
 		VBox root = addVBoxMain();
-		Scene scene = new Scene(root, 400, 400);
+		Scene scene = new Scene(root, 800, 600);
 		primarystage.setScene(scene);
 		primarystage.setTitle(playerController.getPlayerName());
 		primarystage.show();
@@ -53,13 +58,18 @@ public class GameStage implements Observer {
 		rollDiceButton.setOnAction(new GameHandler());
 		dicepane = addDice();
 		vbox.getChildren().add(dicepane);
+		combo = makeDropDown();
+		vbox.getChildren().add(combo);
+		endTurnButton = new Button("ok");
+		endTurnButton.setOnAction(new EndTurn());
+		vbox.getChildren().add(endTurnButton);
 		return vbox;
 	}
 
 	public HBox addHboxTurn() {
 		HBox box = new HBox();
 		box.setSpacing(5);
-		namePlayerTurn = new Label(game.getActivePlayer());
+		namePlayerTurn = new Label(game.getActivePlayerName());
 		box.getChildren().add(turn);
 		box.getChildren().add(namePlayerTurn);
 		return box;
@@ -73,6 +83,8 @@ public class GameStage implements Observer {
 
 	public GridPane addDice() {
 		GridPane box = new GridPane();
+		box.setHgap(20);
+		box.setVgap(20);
 		for (int i = 0; i < buttons.size(); i++) {
 			box.add(buttons.get(i), i, 1);
 			buttons.get(i).setOnAction(new SwitchHandler());
@@ -95,7 +107,28 @@ public class GameStage implements Observer {
 			buttons.get(i).setText(Integer.toString(dice.get(i).getNumber()));
 		}
 	}
-
+	
+	public ComboBox<Catagories> makeDropDown(){
+	    ComboBox<Catagories> cbxStatus = new ComboBox<>();
+	    cbxStatus.setItems( FXCollections.observableArrayList( Catagories.values()));
+	    cbxStatus.getSelectionModel().selectFirst();
+	    return cbxStatus;
+	  }
+	
+	public void disableUI() {
+		rollDiceButton.setManaged(false);
+		combo.setManaged(false);
+		endTurnButton.setManaged(false);
+		dicepane.setMouseTransparent(true);
+	}
+	
+	public void enableUI() {
+		rollDiceButton.setManaged(true);
+		combo.setManaged(true);
+		endTurnButton.setManaged(true);
+		dicepane.setMouseTransparent(false);
+	}
+	
 	@Override
 	public void update() {
 		ArrayList<Die> dice = game.getDice();
@@ -122,4 +155,17 @@ public class GameStage implements Observer {
 			game.keepDie(dice.get(index));
 		}
 	}
+	
+	class EndTurn implements EventHandler<ActionEvent>{
+		 
+	    @Override
+	    public void handle(ActionEvent event) {
+	      //facade.nextPlayersTurn();
+	      //TODO 
+	      //1. Neem uw combobox value
+	      //2.Krijg uw strategy score //Story5
+	      //
+	    }
+	    
+	  }
 }

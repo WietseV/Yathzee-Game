@@ -6,6 +6,7 @@ public class PlayerGroup {
 	
 	private List<Player> playerList = new ArrayList<Player>();
 	private int currentActivePlayer = 0;
+	private int nextPlayer = 1;
 
 	public void add(Player player) {
 		playerList.add(player);
@@ -19,19 +20,20 @@ public class PlayerGroup {
 		return playerList.get(0);
 	}
 	
-	public Player getNextPlayer() {
-		if (currentActivePlayer < playerList.size()) {
-			currentActivePlayer++;
-			Player player = playerList.get(currentActivePlayer);
-			return player;
+	public void setNextPlayer() {
+		currentActivePlayer = nextPlayer;
+		if (nextPlayer < playerList.size()) {
+			nextPlayer++;
 		} else {
-			currentActivePlayer = 0;
-			Player player = playerList.get(currentActivePlayer);
-			return player;
+			nextPlayer = 0;
 		}
 	}
 
-	public String getActivePlayer() {
+	public Player getActivePlayer() {
+		return playerList.get(currentActivePlayer);
+	}
+	
+	public String getActivePlayerName() {
 		return playerList.get(currentActivePlayer).getName();
 	}
 }

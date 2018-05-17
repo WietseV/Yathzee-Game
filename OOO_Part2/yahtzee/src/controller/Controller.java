@@ -27,8 +27,13 @@ public class Controller {
 			if (name.equals(""))
 				break;
 
-			playerConList.add(new PlayerController(gameFacade, name));
-			gameFacade.createPlayer(name);
+//			playerConList.add(new PlayerController(gameFacade, name));
+//			gameFacade.createPlayer(name); <-- returned een playr werd niks meegedaan
+			
+			PlayerController playCon = new PlayerController(gameFacade, name);
+			playerConList.add(playCon);
+			gameFacade.regPlayer(name, playCon);
+			
 		}
 
 		for (PlayerController pc : playerConList) {
