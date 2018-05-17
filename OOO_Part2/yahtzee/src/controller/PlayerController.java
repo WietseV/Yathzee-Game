@@ -27,5 +27,16 @@ public class PlayerController {
 	public String getPlayerName() {
 		return player;
 	}
-
+	
+	public GameStage getGameStage() {
+		return gameStage;
+	}
+	
+	public void disableStageUi() {
+		gameStage.disableUI();
+	}
+	
+	public void enableStageUi() {
+		gameStage.enableUI();
+	}
 }

@@ -116,16 +116,24 @@ public class GameStage implements Observer {
 	  }
 	
 	public void disableUI() {
+		rollDiceButton.setVisible(false);
 		rollDiceButton.setManaged(false);
+		combo.setVisible(false);
 		combo.setManaged(false);
+		endTurnButton.setVisible(false);
 		endTurnButton.setManaged(false);
+//		dicepane.setVisible(false);
 		dicepane.setMouseTransparent(true);
 	}
 	
 	public void enableUI() {
+		rollDiceButton.setVisible(true);
 		rollDiceButton.setManaged(true);
+		combo.setVisible(true);
 		combo.setManaged(true);
+		endTurnButton.setVisible(true);
 		endTurnButton.setManaged(true);
+//		dicepane.setVisible(true);
 		dicepane.setMouseTransparent(false);
 	}
 	
@@ -134,6 +142,7 @@ public class GameStage implements Observer {
 		ArrayList<Die> dice = game.getDice();
 		showDice(dice);
 		setDicePositions();
+		namePlayerTurn.setText(game.getActivePlayerName());
 	}
 
 	class GameHandler implements EventHandler<ActionEvent> {
@@ -165,6 +174,8 @@ public class GameStage implements Observer {
 	      //1. Neem uw combobox value
 	      //2.Krijg uw strategy score //Story5
 	      //
+	    	game.nextPlayerTurn();
+	    	game.notiffy();
 	    }
 	    
 	  }

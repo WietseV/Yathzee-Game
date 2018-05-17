@@ -39,5 +39,7 @@ public class Controller {
 		for (PlayerController pc : playerConList) {
 			pc.startGame();
 		}
+		
+		gameFacade.firstTurn();
 	}
 }

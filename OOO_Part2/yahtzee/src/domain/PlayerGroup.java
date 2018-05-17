@@ -22,7 +22,7 @@ public class PlayerGroup {
 	
 	public void setNextPlayer() {
 		currentActivePlayer = nextPlayer;
-		if (nextPlayer < playerList.size()) {
+		if (nextPlayer < playerList.size()-1) {
 			nextPlayer++;
 		} else {
 			nextPlayer = 0;

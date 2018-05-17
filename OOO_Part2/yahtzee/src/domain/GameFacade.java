@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import controller.PlayerController;
 import ui.Observer;
@@ -31,10 +32,11 @@ public class GameFacade implements Subject {
 		// turnToPlayer = playerGroup.getNextPlayer();
 		// PlayerController playcon = gamePains.get(turnToPlayer);
 		// geen idee wa ge hiermee van plan waart dus ff in commentaar gezet
-		for (Observer o: observerList) {
-			
+		List<Player> playersList = playerGroup.getList();
+		for (Player p : playersList) {
+			gamePains.get(p).disableStageUi();
 		}
-		PlayerController playcon = gamePains.get(player);
+		gamePains.get(player).enableStageUi();
 	}
 
 	public void addPlayerAndPlaycon(Player player, PlayerController playCon) {
@@ -74,7 +76,11 @@ public class GameFacade implements Subject {
 	public String getActivePlayerName() {
 		return playerGroup.getActivePlayerName();
 	}
-
+	
+	public void firstTurn() {
+		Player player = getActivePlayer();
+		setStageCorrectly(player);
+	}
 	public void nextPlayerTurn() {
 		// deze functie moet alle stage disable 
 		// en dan van de juiste speler visible maken 
@@ -82,6 +88,7 @@ public class GameFacade implements Subject {
 		Player player = getActivePlayer();
 		setStageCorrectly(player);
 	}
+	
 	public void callCulatedScore() {
 		
 	}
