@@ -5,16 +5,26 @@ import java.util.ArrayList;
 import domain.Die;
 
 public class Aces implements Catagory {
-
+	Integer score = 0;
 	@Override
-	public Integer score(ArrayList<Die> dice) {
-		Integer score = 0;
+	public void score(ArrayList<Die> dice) {
+		score = 0;
 		for (Die die : dice) {
 			if (die.getNumber() == 1) {
 				score++;
 			}
 		}
-		return score;
+	}
+
+	@Override
+	public Integer getScore() {
+		return this.score;
+		
+	}
+
+	@Override
+	public String getName() {
+		return "ACES";
 	}
 
 }

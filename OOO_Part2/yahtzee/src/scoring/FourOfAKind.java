@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import domain.Die;
 
 public class FourOfAKind implements Catagory {
-
+	Integer score;
 	@Override
-	public Integer score(ArrayList<Die> dice) {
-		if (!validate(dice)) return 0;
-		Integer score = 0;
-		for (Die die : dice) {score += die.getNumber();}
-		return score;
+	public void score(ArrayList<Die> dice) {
+		if (!validate(dice)) score =0 ;
+		score = 0;
+		for (Die die : dice) score += die.getNumber();
 	}
 	
 	
@@ -29,6 +28,18 @@ public class FourOfAKind implements Catagory {
 		}
 		
 		return false;
+	}
+
+
+	@Override
+	public Integer getScore() {
+		return this.score;
+	}
+
+
+	@Override
+	public String getName() {
+		return "FourOfAKind";
 	}
 
 

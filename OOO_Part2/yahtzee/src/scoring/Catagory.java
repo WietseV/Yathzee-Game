@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import domain.Die;
 
 public interface Catagory {
-
-	public abstract Integer score(ArrayList<Die> dice);
+	Integer score = null;
+	public abstract void score(ArrayList<Die> dice);
+	public abstract Integer getScore();
+	public abstract String getName();
+	
 }

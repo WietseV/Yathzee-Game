@@ -8,10 +8,11 @@ import java.util.Set;
 import domain.Die;
 
 public class FullHouse implements Catagory {
+	Integer score;
 	@Override
-	public Integer score(ArrayList<Die> dice) {
-		if (!validate(dice)) return 0;
-		return 25;
+	public void score(ArrayList<Die> dice) {
+		if (!validate(dice)) this.score = 0;
+		this.score = 25;
 	}
 	
 	
@@ -26,6 +27,18 @@ public class FullHouse implements Catagory {
 		    set.add(i);
 		}
 		return ((set.size() == 2) && (list.get(0) == list.get(1)) && (list.get(3) == list.get(4)));
+	}
+
+
+	@Override
+	public Integer getScore() {
+		return this.score;
+	}
+
+
+	@Override
+	public String getName() {
+		return "FullHouse";
 	}
 
 }

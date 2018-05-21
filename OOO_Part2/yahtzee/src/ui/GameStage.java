@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import controller.PlayerController;
 import domain.Die;
 import domain.GameFacade;
+import domain.ScoreBoard;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,11 +14,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import scoring.Catagories;
+import scoring.Catagory;
 
 public class GameStage implements Observer {
 
@@ -31,6 +36,10 @@ public class GameStage implements Observer {
 	GridPane dicepane = new GridPane();
 	private Button endTurnButton;
 	private ComboBox<Catagories> combo;
+	private TableView scoreTable;
+	private Label tableLabel;
+	private TableColumn strategyCol;
+	private TableColumn scoreCol;
 	
 
 	public GameStage(PlayerController playerController) {
@@ -40,14 +49,23 @@ public class GameStage implements Observer {
 
 	public void show() {
 		initiateButtons();
-		VBox root = addVBoxMain();
+//		VBox root = addVBoxMain();
+		HBox root = HboxStory7();
+		root.setSpacing(20);
 		Scene scene = new Scene(root, 800, 600);
 		primarystage.setScene(scene);
 		primarystage.setTitle(playerController.getPlayerName());
 		primarystage.show();
 
 	}
-
+	public HBox HboxStory7() {
+		HBox box = new HBox();
+		VBox vbox = addVBoxMain();
+		box.getChildren().add(vbox);
+		VBox vboxtabel = table();
+		box.getChildren().add(vboxtabel);
+		return box;
+	}
 	public VBox addVBoxMain() {
 		VBox vbox = new VBox();
 		vbox.setPadding(new Insets(10));
@@ -137,6 +155,29 @@ public class GameStage implements Observer {
 		dicepane.setMouseTransparent(false);
 	}
 	
+	//make tabel 
+	public VBox table() {
+		VBox box = new VBox();
+		tableLabel = new Label ("Game one");
+		box.getChildren().add(tableLabel);
+		TableView table = makeTable();
+		box.getChildren().add(table);
+		return box;
+	}
+	public TableView makeTable() {
+		
+		scoreTable = new TableView();
+		scoreTable.setEditable(true);
+		strategyCol = new TableColumn("Category");
+		strategyCol.setCellValueFactory(new PropertyValueFactory<ScoreBoard, Catagory>("cat"));
+		scoreCol = new TableColumn ("Score");
+		scoreCol.setCellValueFactory(new PropertyValueFactory<ScoreBoard, Integer>("score"));
+
+		scoreTable.getColumns().addAll(strategyCol, scoreCol);
+		
+		
+		return scoreTable;
+	}
 	@Override
 	public void update() {
 		ArrayList<Die> dice = game.getDice();

@@ -6,11 +6,11 @@ import java.util.Collections;
 import domain.Die;
 
 public class SmallStraight implements Catagory {
-
+	Integer score;
 	@Override
-	public Integer score(ArrayList<Die> dice) {
-		if (!validate(dice)) return 0;
-		return 30;
+	public void score(ArrayList<Die> dice) {
+		if (!validate(dice)) score = 0;
+		score = 30;
 	}
 	
 	
@@ -40,5 +40,17 @@ public class SmallStraight implements Catagory {
 	      }
 		return false;
 	    
+	}
+
+
+	@Override
+	public Integer getScore() {
+		return this.score;
+	}
+
+
+	@Override
+	public String getName() {
+		return "SmallStraight";
 	}
 }
