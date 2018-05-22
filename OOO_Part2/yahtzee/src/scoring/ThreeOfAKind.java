@@ -12,9 +12,13 @@ public class ThreeOfAKind implements Catagory {
 	@Override
 	public void score(ArrayList<Die> dice) {
 		int score =0;
-		if (!validate(dice)) score = 0;
-		score = 0;
-		for (Die die : dice) {score += die.getNumber();}
+		if (!validate(dice)) {
+			score = 0;
+		}
+		else {
+			for (Die die : dice) {score += die.getNumber();}
+		}
+		
 		scored.set(score);
 	}
 	

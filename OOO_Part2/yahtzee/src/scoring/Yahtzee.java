@@ -15,7 +15,7 @@ public class Yahtzee implements Catagory {
 	public void score(ArrayList<Die> dice) {
 		int score;
 		if (!validate(dice)) score = 0;
-		score = 50;
+		else score = 50;
 		scored.set(score);
 	}
 	
