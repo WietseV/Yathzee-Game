@@ -14,7 +14,7 @@ public class SmallStraight implements Catagory {
 	public void score(ArrayList<Die> dice) {
 		int score;
 		if (!validate(dice)) score = 0;
-		score = 30;
+		else score = 30;
 		scored.set(score);
 	}
 	

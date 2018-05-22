@@ -14,7 +14,7 @@ public class LargeStraight implements Catagory {
 	public void score(ArrayList<Die> dice) {
 		int score;
 		if (!validate(dice)) score = 0;
-		score = 40;
+		else score = 40;
 		scored.set(score);
 	}
 	

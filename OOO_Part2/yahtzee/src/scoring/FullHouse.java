@@ -16,7 +16,7 @@ public class FullHouse implements Catagory {
 	public void score(ArrayList<Die> dice) {
 		int score;
 		if (!validate(dice)) score = 0;
-		score = 25;
+		else score = 25;
 		scored.set(score);
 	}
 	
