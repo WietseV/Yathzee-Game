@@ -225,7 +225,7 @@ public class GameStage implements Observer {
 			game.throwDice();
 			ArrayList<Die> dice = game.getDice();
 			showDice(dice);
-			if(getPlayerThrow() == 2) {
+			if(getPlayerThrow() == 3) {
 				endTurn();
 				playerThrow = 1;
 			}

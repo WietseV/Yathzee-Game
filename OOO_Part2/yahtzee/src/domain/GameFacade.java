@@ -15,7 +15,7 @@ public class GameFacade implements Subject {
 	private YahtzeeDice yathzeeDice = new YahtzeeDice(AMOUNT_OF_DICE);
 	private ArrayList<Observer> observerList = new ArrayList<Observer>();
 
-	private Hashtable<Player, PlayerController> gamePains = new Hashtable<Player, PlayerController>();
+	private Hashtable<Player, PlayerController> gamePanes = new Hashtable<Player, PlayerController>();
 	private ScoreBoard currentPlayerScoreBoard;
 	private int groupsize;
 	private int turn;
@@ -30,22 +30,22 @@ public class GameFacade implements Subject {
 
 	public void setStageCorrectly(Player player) {
 		// setNextPlayerTurn();
-		// de getNextPlayer bestond ql dus ge kunt die gewoon gebruiken
+		// de getNextPlayer bestond al dus ge kunt die gewoon gebruiken
 		// turnToPlayer = playerGroup.getNextPlayer();
 		// PlayerController playcon = gamePains.get(turnToPlayer);
 		// geen idee wa ge hiermee van plan waart dus ff in commentaar gezet
 		List<Player> playersList = playerGroup.getList();
 		for (Player p : playersList) {
-			gamePains.get(p).disableStageUi();
+			gamePanes.get(p).disableStageUi();
 		}
-		gamePains.get(player).enableStageUi();
+		gamePanes.get(player).enableStageUi();
 	}
 
 	public void addPlayerAndPlaycon(Player player, PlayerController playCon) {
 		// deze gaat alle buttons invisible zetten bij elke juist stage/ player
 		// controller
 		// TODO implementeren
-		gamePains.put(player, playCon);
+		gamePanes.put(player, playCon);
 	}
 
 	private void regPlayer(Player player) {
@@ -98,7 +98,7 @@ public class GameFacade implements Subject {
 	
 	public void endPlayerTurn() {
 		Player player = getActivePlayer();
-		gamePains.get(player).endTurnUi();
+		gamePanes.get(player).endTurnUi();
 	}
 	public void callCulatedScore(Catagories cat) {
 		turnToPlayer.calculateScore(cat, yathzeeDice);
