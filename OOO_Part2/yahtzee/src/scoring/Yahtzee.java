@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Yahtzee implements Catagory {
 	SimpleIntegerProperty scored = new SimpleIntegerProperty(0);
-	SimpleStringProperty name = new SimpleStringProperty("Yathzee");
+	SimpleStringProperty name = new SimpleStringProperty("YATHZEE");
 	@Override
 	public void score(ArrayList<Die> dice) {
 		int score;

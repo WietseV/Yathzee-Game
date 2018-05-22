@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class SmallStraight implements Catagory {
 	SimpleIntegerProperty scored = new SimpleIntegerProperty(0);
-	SimpleStringProperty name = new SimpleStringProperty("SmallStraight");
+	SimpleStringProperty name = new SimpleStringProperty("SMALL_STRAIGHT");
 	@Override
 	public void score(ArrayList<Die> dice) {
 		int score;

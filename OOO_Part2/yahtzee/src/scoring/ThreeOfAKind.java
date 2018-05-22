@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class ThreeOfAKind implements Catagory {
 	SimpleIntegerProperty scored = new SimpleIntegerProperty(0);
-	SimpleStringProperty name = new SimpleStringProperty("ThreeOfAKind");
+	SimpleStringProperty name = new SimpleStringProperty("THREE_OF_A_KIND");
 	@Override
 	public void score(ArrayList<Die> dice) {
 		int score =0;

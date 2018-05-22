@@ -115,7 +115,7 @@ public class GameFacade implements Subject {
 		gamePanes.get(player).endTurnUi();
 	}
 
-	public void callCulatedScore(Catagories cat) {
+	public void callCulatedScore(Catagories cat) throws Exception {
 		turnToPlayer.calculateScore(cat, yathzeeDice);
 	}
 
