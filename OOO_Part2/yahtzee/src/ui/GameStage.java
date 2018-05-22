@@ -43,6 +43,7 @@ public class GameStage implements Observer {
 	private Label tableLabel;
 	private TableColumn strategyCol;
 	private TableColumn scoreCol;
+	private TableColumn predictionCol;
 	 private ComboBox<Catagories> cbxStatus;
 
 	public GameStage(PlayerController playerController) {
@@ -196,8 +197,9 @@ public class GameStage implements Observer {
 		strategyCol.setCellValueFactory(new PropertyValueFactory<ScoreBoard, String>("name"));
 		scoreCol = new TableColumn ("Score");
 		scoreCol.setCellValueFactory(new PropertyValueFactory<ScoreBoard, Integer>("score"));
-		
-		scoreTable.getColumns().addAll(strategyCol, scoreCol);
+		predictionCol = new TableColumn("Predicted");
+		predictionCol.setCellValueFactory(new PropertyValueFactory<ScoreBoard, Integer>("Predicted"));
+		scoreTable.getColumns().addAll(strategyCol, scoreCol, predictionCol);
 		
 		
 		return scoreTable;
