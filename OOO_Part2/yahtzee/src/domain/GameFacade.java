@@ -63,9 +63,10 @@ public class GameFacade implements Subject {
 	public void throwDice() {
 		if (this.turn > 0) {
 			yathzeeDice.ThrowDice();
-			setTurn(this.turn--);
+			setTurn(turn--);
+			System.out.println(turn--);
 			notiffy();
-		}
+		}else endPlayerTurn();
 	}
 
 	public int getTurn() {
