@@ -140,7 +140,7 @@ public class GameStage implements Observer {
 	
 	public void endTurn() {
 		rollDiceButton.setVisible(true);
-		rollDiceButton.setManaged(false);
+		rollDiceButton.setMouseTransparent(false);
 		combo.setVisible(true);
 		combo.setManaged(true);
 		endTurnButton.setVisible(true);
@@ -169,10 +169,6 @@ public class GameStage implements Observer {
 		endTurnButton.setManaged(true);
 //		dicepane.setVisible(true);
 		dicepane.setMouseTransparent(false);
-	}
-	
-	public void updateThrow() {
-		Playerthrow.setText("throw: " + playerController.getTurn());
 	}
 	
 	//make tabel 
@@ -208,9 +204,9 @@ public class GameStage implements Observer {
 	@Override
 	public void update() {
 		ArrayList<Die> dice = game.getDice();
-		updateThrow();
 		showDice(dice);
 		setDicePositions();
+		Playerthrow.setText("throw: " + playerController.getTurn());
 		namePlayerTurn.setText(game.getActivePlayerName());
 	}
 
@@ -221,9 +217,6 @@ public class GameStage implements Observer {
 			game.throwDice();
 			ArrayList<Die> dice = game.getDice();
 			showDice(dice);
-			if(playerController.getTurn() == 1) {
-				endTurn();
-			}
 		}
 	}
 
