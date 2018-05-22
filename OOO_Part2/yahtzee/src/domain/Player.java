@@ -32,4 +32,8 @@ public class Player {
 		cata.score(dice);
 		scoreBoard.setScore(cata);
 	}
+	
+	public ScoreBoard getScoreBoard() {
+		return this.scoreBoard;
+	}
 }

@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import controller.PlayerController;
+import scoring.Catagories;
 import ui.Observer;
 
 public class GameFacade implements Subject {
@@ -14,10 +15,11 @@ public class GameFacade implements Subject {
 	private YahtzeeDice yathzeeDice = new YahtzeeDice(AMOUNT_OF_DICE);
 	private ArrayList<Observer> observerList = new ArrayList<Observer>();
 
-	Hashtable<Player, PlayerController> gamePains = new Hashtable<Player, PlayerController>();
-	int groupsize;
-	int turn;
-	Player turnToPlayer;
+	private Hashtable<Player, PlayerController> gamePains = new Hashtable<Player, PlayerController>();
+	private ScoreBoard currentPlayerScoreBoard;
+	private int groupsize;
+	private int turn;
+	private Player turnToPlayer;
 
 	// TODO add PLayCon turn player
 	public void regPlayer(String name, PlayerController playCon) {
@@ -77,21 +79,27 @@ public class GameFacade implements Subject {
 		return playerGroup.getActivePlayerName();
 	}
 	
+	public ScoreBoard getPlayerScorBoard() {
+		currentPlayerScoreBoard = turnToPlayer.getScoreBoard();
+		return currentPlayerScoreBoard;
+	}
+	
 	public void firstTurn() {
-		Player player = getActivePlayer();
-		setStageCorrectly(player);
+		turnToPlayer = getActivePlayer();
+		setStageCorrectly(turnToPlayer);
 	}
 	public void nextPlayerTurn() {
 		// deze functie moet alle stage disable 
 		// en dan van de juiste speler visible maken 
 		playerGroup.setNextPlayer();
-		Player player = getActivePlayer();
-		setStageCorrectly(player);
+		turnToPlayer = getActivePlayer();
+		setStageCorrectly(turnToPlayer);
 	}
 	
-	public void callCulatedScore() {
-		
+	public void callCulatedScore(Catagories cat) {
+		turnToPlayer.calculateScore(cat, yathzeeDice);
 	}
+	
 	public void keepDie(Die die) {
 		yathzeeDice.keepDie(die);
 		notiffy();

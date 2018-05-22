@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import domain.Die;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class LargeStraight implements Catagory {
-	Integer score;
+	SimpleIntegerProperty scored = new SimpleIntegerProperty(0);
+	SimpleStringProperty name = new SimpleStringProperty("LargeStraight");
 	@Override
 	public void score(ArrayList<Die> dice) {
+		int score;
 		if (!validate(dice)) score = 0;
 		score = 40;
+		scored.set(score);
 	}
 	
 	
@@ -44,13 +49,13 @@ public class LargeStraight implements Catagory {
 
 	@Override
 	public Integer getScore() {
-		return this.score;
+		return scored.get();
 	}
 
 
 	@Override
 	public String getName() {
-		return "LargeStraight";
+		return name.get();
 	}
 
 }

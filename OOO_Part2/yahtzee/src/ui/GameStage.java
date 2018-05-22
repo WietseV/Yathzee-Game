@@ -7,6 +7,7 @@ import domain.Die;
 import domain.GameFacade;
 import domain.ScoreBoard;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -40,7 +41,7 @@ public class GameStage implements Observer {
 	private Label tableLabel;
 	private TableColumn strategyCol;
 	private TableColumn scoreCol;
-	
+	 private ComboBox<Catagories> cbxStatus;
 
 	public GameStage(PlayerController playerController) {
 		this.playerController = playerController;
@@ -127,7 +128,7 @@ public class GameStage implements Observer {
 	}
 	
 	public ComboBox<Catagories> makeDropDown(){
-	    ComboBox<Catagories> cbxStatus = new ComboBox<>();
+	    cbxStatus = new ComboBox<>();
 	    cbxStatus.setItems( FXCollections.observableArrayList( Catagories.values()));
 	    cbxStatus.getSelectionModel().selectFirst();
 	    return cbxStatus;
@@ -169,14 +170,21 @@ public class GameStage implements Observer {
 		scoreTable = new TableView();
 		scoreTable.setEditable(true);
 		strategyCol = new TableColumn("Category");
-		strategyCol.setCellValueFactory(new PropertyValueFactory<ScoreBoard, Catagory>("cat"));
+		strategyCol.setCellValueFactory(new PropertyValueFactory<ScoreBoard, String>("name"));
 		scoreCol = new TableColumn ("Score");
 		scoreCol.setCellValueFactory(new PropertyValueFactory<ScoreBoard, Integer>("score"));
-
+		
 		scoreTable.getColumns().addAll(strategyCol, scoreCol);
 		
 		
 		return scoreTable;
+	}
+	
+	public void setInputTable(ScoreBoard sb) {
+//		for (Catagory cat:sb.getListPoints()) {
+//			
+//		}
+		scoreTable.setItems(sb.getDataList());
 	}
 	@Override
 	public void update() {
@@ -215,6 +223,8 @@ public class GameStage implements Observer {
 	      //1. Neem uw combobox value
 	      //2.Krijg uw strategy score //Story5
 	      //
+	    	game.callCulatedScore( cbxStatus.getValue());
+	    	setInputTable(game.getPlayerScorBoard());
 	    	game.nextPlayerTurn();
 	    	game.notiffy();
 	    }

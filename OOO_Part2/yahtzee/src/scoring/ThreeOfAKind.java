@@ -3,14 +3,19 @@ package scoring;
 import java.util.ArrayList;
 
 import domain.Die;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class ThreeOfAKind implements Catagory {
-	Integer score;
+	SimpleIntegerProperty scored = new SimpleIntegerProperty(0);
+	SimpleStringProperty name = new SimpleStringProperty("ThreeOfAKind");
 	@Override
 	public void score(ArrayList<Die> dice) {
+		int score =0;
 		if (!validate(dice)) score = 0;
 		score = 0;
 		for (Die die : dice) {score += die.getNumber();}
+		scored.set(score);
 	}
 	
 	
@@ -33,13 +38,13 @@ public class ThreeOfAKind implements Catagory {
 
 	@Override
 	public Integer getScore() {
-		return this.score;
+		return scored.get();
 	}
 
 
 	@Override
 	public String getName() {
-		return "ThreeOfAKind";
+		return name.get();
 	}
 
 }
