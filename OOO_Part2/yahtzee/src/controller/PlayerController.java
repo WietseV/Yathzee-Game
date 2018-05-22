@@ -39,4 +39,8 @@ public class PlayerController {
 	public void enableStageUi() {
 		gameStage.enableUI();
 	}
+	
+	public void endTurnUi() {
+		gameStage.endTurn();
+	}
 }

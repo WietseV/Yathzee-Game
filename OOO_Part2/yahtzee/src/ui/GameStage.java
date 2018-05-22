@@ -28,10 +28,11 @@ public class GameStage implements Observer {
 	private Label namePlayerTurn;
 	private Label turn = new Label("De beurt is aan");
 	private ArrayList<Button> buttons = new ArrayList<Button>();
-	GridPane dicepane = new GridPane();
+	private GridPane dicepane = new GridPane();
 	private Button endTurnButton;
 	private ComboBox<Catagories> combo;
-	
+	private int playerThrow = 1;
+	private Label Playerthrow = new Label("throw: " + playerThrow);
 
 	public GameStage(PlayerController playerController) {
 		this.playerController = playerController;
@@ -41,11 +42,10 @@ public class GameStage implements Observer {
 	public void show() {
 		initiateButtons();
 		VBox root = addVBoxMain();
-		Scene scene = new Scene(root, 800, 600);
+		Scene scene = new Scene(root, 400, 400);
 		primarystage.setScene(scene);
 		primarystage.setTitle(playerController.getPlayerName());
 		primarystage.show();
-
 	}
 
 	public VBox addVBoxMain() {
@@ -54,6 +54,7 @@ public class GameStage implements Observer {
 		vbox.setSpacing(8);
 		HBox hBox = addHboxTurn();
 		vbox.getChildren().add(hBox);
+		vbox.getChildren().add(Playerthrow);
 		vbox.getChildren().add(rollDiceButton);
 		rollDiceButton.setOnAction(new GameHandler());
 		dicepane = addDice();
@@ -91,6 +92,10 @@ public class GameStage implements Observer {
 		}
 		return box;
 	}
+	
+	public int getPlayerThrow() {
+		return this.playerThrow;
+	}
 
 	public void setDicePositions() {
 		ArrayList<Die> dice = game.getDice();
@@ -98,14 +103,17 @@ public class GameStage implements Observer {
 			if (!dice.get(i).isPlayable()) {
 				dicepane.getChildren().remove(buttons.get(i));
 				dicepane.add(buttons.get(i), i, 2);
+			}else {
+				dicepane.getChildren().remove(buttons.get(i));
+				dicepane.add(buttons.get(i), i, 1);
 			}
 		}
 	}
-
+	
 	public void showDice(ArrayList<Die> dice) {
 		for (int i = 0; i < buttons.size(); i++) {
-			buttons.get(i).setText(Integer.toString(dice.get(i).getNumber()));
-		}
+				buttons.get(i).setText(Integer.toString(dice.get(i).getNumber()));
+		}	
 	}
 	
 	public ComboBox<Catagories> makeDropDown(){
@@ -114,6 +122,17 @@ public class GameStage implements Observer {
 	    cbxStatus.getSelectionModel().selectFirst();
 	    return cbxStatus;
 	  }
+	
+	public void endTurn() {
+		rollDiceButton.setVisible(true);
+		rollDiceButton.setManaged(false);
+		combo.setVisible(true);
+		combo.setManaged(true);
+		endTurnButton.setVisible(true);
+		endTurnButton.setManaged(true);
+//		dicepane.setVisible(true);
+		dicepane.setMouseTransparent(false);
+	}
 	
 	public void disableUI() {
 		rollDiceButton.setVisible(false);
@@ -137,9 +156,14 @@ public class GameStage implements Observer {
 		dicepane.setMouseTransparent(false);
 	}
 	
+	public void updateThrow() {
+		Playerthrow.setText("throw: " + playerThrow++);
+	}
+	
 	@Override
 	public void update() {
 		ArrayList<Die> dice = game.getDice();
+		updateThrow();
 		showDice(dice);
 		setDicePositions();
 		namePlayerTurn.setText(game.getActivePlayerName());
@@ -152,6 +176,10 @@ public class GameStage implements Observer {
 			game.throwDice();
 			ArrayList<Die> dice = game.getDice();
 			showDice(dice);
+			if(getPlayerThrow() == 2) {
+				endTurn();
+				playerThrow = 1;
+			}
 		}
 	}
 
@@ -175,6 +203,9 @@ public class GameStage implements Observer {
 	      //2.Krijg uw strategy score //Story5
 	      //
 	    	game.nextPlayerTurn();
+	    	for (Die die: game.getDice()) {
+	    		game.PlayWithDie(die);
+	    	}
 	    	game.notiffy();
 	    }
 	    

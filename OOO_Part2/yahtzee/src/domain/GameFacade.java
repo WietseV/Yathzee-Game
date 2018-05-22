@@ -89,6 +89,11 @@ public class GameFacade implements Subject {
 		setStageCorrectly(player);
 	}
 	
+	public void endPlayerTurn() {
+		Player player = getActivePlayer();
+		gamePains.get(player).endTurnUi();
+	}
+	
 	public void callCulatedScore() {
 		
 	}
