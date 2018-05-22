@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.Locale.Category;
 
 import javax.swing.JOptionPane;
 
@@ -9,7 +10,6 @@ import domain.Die;
 import domain.GameFacade;
 import domain.ScoreBoard;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -25,7 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import scoring.Catagories;
-import scoring.Catagory;
+
 
 public class GameStage implements Observer {
 
@@ -194,8 +194,6 @@ public class GameStage implements Observer {
 		predictionCol = new TableColumn("Predicted");
 		predictionCol.setCellValueFactory(new PropertyValueFactory<ScoreBoard, Integer>("Predicted"));
 		scoreTable.getColumns().addAll(strategyCol, scoreCol, predictionCol);
-		
-		
 		return scoreTable;
 	}
 	
@@ -229,11 +227,13 @@ public class GameStage implements Observer {
 
 		@Override
 		public void handle(ActionEvent event) {
+			if (!(game.getTurn() == 3)) {
 			ArrayList<Die> dice = game.getDice();
 			int index = buttons.indexOf((Button) event.getSource());
 			Button thisbutton = (Button) event.getSource();
 			thisbutton.setOnAction(new BackSwitchHandler());
 			game.keepDie(dice.get(index));
+			}
 		}
 	}
 	
@@ -258,13 +258,16 @@ public class GameStage implements Observer {
 	      //1. Neem uw combobox value
 	      //2.Krijg uw strategy score //Story5
 	      //
+	    	
 	    	try {
+	    		if (!(game.getTurn() == 3)) {
 				game.callCulatedScore( cbxStatus.getValue());
 				setInputTable(game.getPlayerScorBoard());
 		    	game.nextPlayerTurn();
 		    	for (Die die: game.getDice()) {
 		    		game.PlayWithDie(die);
 		    	}
+	    		}
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, "Please select a catagory you haven't selected yet");
 			}
