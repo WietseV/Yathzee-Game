@@ -39,7 +39,7 @@ public class GameStage implements Observer {
 	private GridPane dicepane = new GridPane();
 	private Button endTurnButton;
 	private ComboBox<Catagories> combo;
-	private Label Playerthrow = new Label();
+	private Label Playerthrow;
 	private TableView scoreTable;
 	private Label tableLabel;
 	private TableColumn strategyCol;
@@ -75,7 +75,7 @@ public class GameStage implements Observer {
 		vbox.setSpacing(8);
 		HBox hBox = addHboxTurn();
 		vbox.getChildren().add(hBox);
-		Label Playerthrow = new Label("throw: " + playerController.getTurn());
+		Playerthrow = new Label("throw: " + playerController.getTurn());
 		vbox.getChildren().add(Playerthrow);
 		vbox.getChildren().add(rollDiceButton);
 		rollDiceButton.setOnAction(new GameHandler());
@@ -210,6 +210,7 @@ public class GameStage implements Observer {
 		ArrayList<Die> dice = game.getDice();
 		showDice(dice);
 		setDicePositions();
+		System.out.println(playerController.getTurn());
 		Playerthrow.setText("throw: " + playerController.getTurn());
 		namePlayerTurn.setText(game.getActivePlayerName());
 	}
