@@ -124,6 +124,11 @@ public class GameFacade implements Subject {
 		yathzeeDice.keepDie(die);
 		notiffy();
 	}
+	
+	public void returnDie(Die die) {
+		yathzeeDice.returnDie(die);
+		notiffy();
+	}
 
 	public void PlayWithDie(Die die) {
 		yathzeeDice.playWithDie(die);

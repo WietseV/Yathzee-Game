@@ -230,7 +230,21 @@ public class GameStage implements Observer {
 		public void handle(ActionEvent event) {
 			ArrayList<Die> dice = game.getDice();
 			int index = buttons.indexOf((Button) event.getSource());
+			Button thisbutton = (Button) event.getSource();
+			thisbutton.setOnAction(new BackSwitchHandler());
 			game.keepDie(dice.get(index));
+		}
+	}
+	
+	class BackSwitchHandler implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent event) {
+			ArrayList<Die> dice = game.getDice();
+			int index = buttons.indexOf((Button) event.getSource());
+			Button thisbutton = (Button) event.getSource();
+			thisbutton.setOnAction(new SwitchHandler());
+			game.returnDie(dice.get(index));
 		}
 	}
 	
