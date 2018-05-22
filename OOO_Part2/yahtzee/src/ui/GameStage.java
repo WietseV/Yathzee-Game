@@ -210,7 +210,6 @@ public class GameStage implements Observer {
 		ArrayList<Die> dice = game.getDice();
 		showDice(dice);
 		setDicePositions();
-		System.out.println(playerController.getTurn());
 		Playerthrow.setText("throw: " + playerController.getTurn());
 		namePlayerTurn.setText(game.getActivePlayerName());
 	}
