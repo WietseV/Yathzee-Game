@@ -43,4 +43,8 @@ public class PlayerController {
 	public void endTurnUi() {
 		gameStage.endTurn();
 	}
+	
+	public int getTurn() {
+		return gameFacade.getTurn();
+	}
 }

@@ -18,7 +18,8 @@ public class GameFacade implements Subject {
 	private Hashtable<Player, PlayerController> gamePanes = new Hashtable<Player, PlayerController>();
 	private ScoreBoard currentPlayerScoreBoard;
 	private int groupsize;
-	private int turn;
+	private int turn = 3;
+
 	private Player turnToPlayer;
 
 	// TODO add PLayCon turn player
@@ -38,6 +39,7 @@ public class GameFacade implements Subject {
 		for (Player p : playersList) {
 			gamePanes.get(p).disableStageUi();
 		}
+		turn = 3;
 		gamePanes.get(player).enableStageUi();
 	}
 
@@ -59,8 +61,19 @@ public class GameFacade implements Subject {
 	}
 
 	public void throwDice() {
-		yathzeeDice.ThrowDice();
-		notiffy();
+		if (this.turn > 0) {
+			yathzeeDice.ThrowDice();
+			setTurn(this.turn--);
+			notiffy();
+		}
+	}
+
+	public int getTurn() {
+		return turn;
+	}
+
+	public void setTurn(int turn) {
+		this.turn = turn;
 	}
 
 	public int getAMOUNT_OF_DICE() {
@@ -78,32 +91,34 @@ public class GameFacade implements Subject {
 	public String getActivePlayerName() {
 		return playerGroup.getActivePlayerName();
 	}
-	
+
 	public ScoreBoard getPlayerScorBoard() {
 		currentPlayerScoreBoard = turnToPlayer.getScoreBoard();
 		return currentPlayerScoreBoard;
 	}
-	
+
 	public void firstTurn() {
 		turnToPlayer = getActivePlayer();
 		setStageCorrectly(turnToPlayer);
 	}
+
 	public void nextPlayerTurn() {
-		// deze functie moet alle stage disable 
-		// en dan van de juiste speler visible maken 
+		// deze functie moet alle stage disable
+		// en dan van de juiste speler visible maken
 		playerGroup.setNextPlayer();
 		turnToPlayer = getActivePlayer();
 		setStageCorrectly(turnToPlayer);
 	}
-	
+
 	public void endPlayerTurn() {
 		Player player = getActivePlayer();
 		gamePanes.get(player).endTurnUi();
 	}
+
 	public void callCulatedScore(Catagories cat) {
 		turnToPlayer.calculateScore(cat, yathzeeDice);
 	}
-	
+
 	public void keepDie(Die die) {
 		yathzeeDice.keepDie(die);
 		notiffy();
