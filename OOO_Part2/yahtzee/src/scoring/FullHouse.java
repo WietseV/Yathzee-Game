@@ -6,12 +6,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 import domain.Die;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class FullHouse implements Catagory {
+	SimpleIntegerProperty scored = new SimpleIntegerProperty(0);
+	SimpleStringProperty name = new SimpleStringProperty("FULLHOUSE");
 	@Override
-	public Integer score(ArrayList<Die> dice) {
-		if (!validate(dice)) return 0;
-		return 25;
+	public void score(ArrayList<Die> dice) {
+		int score;
+		if (!validate(dice)) score = 0;
+		score = 25;
+		scored.set(score);
 	}
 	
 	
@@ -26,6 +32,18 @@ public class FullHouse implements Catagory {
 		    set.add(i);
 		}
 		return ((set.size() == 2) && (list.get(0) == list.get(1)) && (list.get(3) == list.get(4)));
+	}
+
+
+	@Override
+	public Integer getScore() {
+		return scored.get();
+	}
+
+
+	@Override
+	public String getName() {
+		return name.get();
 	}
 
 }

@@ -96,12 +96,18 @@ public class GameFacade implements Subject {
 		setStageCorrectly(turnToPlayer);
 	}
 	
+<<<<<<< HEAD
 	public void endPlayerTurn() {
 		Player player = getActivePlayer();
 		gamePains.get(player).endTurnUi();
 	}
+	
+	public void callCulatedScore() {
+		
+=======
 	public void callCulatedScore(Catagories cat) {
 		turnToPlayer.calculateScore(cat, yathzeeDice);
+>>>>>>> 1c3b4668ac7fbd2ac4f89bda2eec2b30de3e250c
 	}
 	
 	public void keepDie(Die die) {

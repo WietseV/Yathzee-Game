@@ -1,10 +1,19 @@
 package domain;
 
+import scoring.Catagories;
+
+import java.util.ArrayList;
+
+import com.sun.scenario.effect.DisplacementMap;
+
+import scoring.*;
 
 public class Player {
 
 	private String name;
-
+	private ScoreFactory scoreFactory= new ScoreFactory();
+	private ScoreBoard scoreBoard = new ScoreBoard();
+	
 	public Player(String name) {
 		setName(name);
 	}
@@ -17,4 +26,14 @@ public class Player {
 		return name;
 	}
 
+	public void calculateScore (Catagories cat, YahtzeeDice diceeee) {
+		Catagory cata = scoreFactory.getCata(cat);
+		ArrayList<Die> dice = diceeee.getDice();
+		cata.score(dice);
+		scoreBoard.setScore(cata);
+	}
+	
+	public ScoreBoard getScoreBoard() {
+		return this.scoreBoard;
+	}
 }

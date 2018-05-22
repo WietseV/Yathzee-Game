@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import controller.PlayerController;
 import domain.Die;
 import domain.GameFacade;
+import domain.ScoreBoard;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,11 +15,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import scoring.Catagories;
+import scoring.Catagory;
 
 public class GameStage implements Observer {
 
@@ -33,6 +39,11 @@ public class GameStage implements Observer {
 	private ComboBox<Catagories> combo;
 	private int playerThrow = 1;
 	private Label Playerthrow = new Label("throw: " + playerThrow);
+	private TableView scoreTable;
+	private Label tableLabel;
+	private TableColumn strategyCol;
+	private TableColumn scoreCol;
+	 private ComboBox<Catagories> cbxStatus;
 
 	public GameStage(PlayerController playerController) {
 		this.playerController = playerController;
@@ -41,13 +52,21 @@ public class GameStage implements Observer {
 
 	public void show() {
 		initiateButtons();
-		VBox root = addVBoxMain();
-		Scene scene = new Scene(root, 400, 400);
+		HBox root = HboxStory7();
+		root.setSpacing(20);
+		Scene scene = new Scene(root, 800, 600);
 		primarystage.setScene(scene);
 		primarystage.setTitle(playerController.getPlayerName());
 		primarystage.show();
 	}
-
+	public HBox HboxStory7() {
+		HBox box = new HBox();
+		VBox vbox = addVBoxMain();
+		box.getChildren().add(vbox);
+		VBox vboxtabel = table();
+		box.getChildren().add(vboxtabel);
+		return box;
+	}
 	public VBox addVBoxMain() {
 		VBox vbox = new VBox();
 		vbox.setPadding(new Insets(10));
@@ -117,7 +136,7 @@ public class GameStage implements Observer {
 	}
 	
 	public ComboBox<Catagories> makeDropDown(){
-	    ComboBox<Catagories> cbxStatus = new ComboBox<>();
+	    cbxStatus = new ComboBox<>();
 	    cbxStatus.setItems( FXCollections.observableArrayList( Catagories.values()));
 	    cbxStatus.getSelectionModel().selectFirst();
 	    return cbxStatus;
@@ -160,6 +179,36 @@ public class GameStage implements Observer {
 		Playerthrow.setText("throw: " + playerThrow++);
 	}
 	
+	//make tabel 
+	public VBox table() {
+		VBox box = new VBox();
+		tableLabel = new Label ("Game one");
+		box.getChildren().add(tableLabel);
+		TableView table = makeTable();
+		box.getChildren().add(table);
+		return box;
+	}
+	public TableView makeTable() {
+		
+		scoreTable = new TableView();
+		scoreTable.setEditable(true);
+		strategyCol = new TableColumn("Category");
+		strategyCol.setCellValueFactory(new PropertyValueFactory<ScoreBoard, String>("name"));
+		scoreCol = new TableColumn ("Score");
+		scoreCol.setCellValueFactory(new PropertyValueFactory<ScoreBoard, Integer>("score"));
+		
+		scoreTable.getColumns().addAll(strategyCol, scoreCol);
+		
+		
+		return scoreTable;
+	}
+	
+	public void setInputTable(ScoreBoard sb) {
+//		for (Catagory cat:sb.getListPoints()) {
+//			
+//		}
+		scoreTable.setItems(sb.getDataList());
+	}
 	@Override
 	public void update() {
 		ArrayList<Die> dice = game.getDice();
@@ -202,6 +251,8 @@ public class GameStage implements Observer {
 	      //1. Neem uw combobox value
 	      //2.Krijg uw strategy score //Story5
 	      //
+	    	game.callCulatedScore( cbxStatus.getValue());
+	    	setInputTable(game.getPlayerScorBoard());
 	    	game.nextPlayerTurn();
 	    	for (Die die: game.getDice()) {
 	    		game.PlayWithDie(die);
