@@ -26,7 +26,7 @@ public class Player {
 		return name;
 	}
 
-	public void calculateScore (Catagories cat, YahtzeeDice diceeee) {
+	public void calculateScore (Catagories cat, YahtzeeDice diceeee) throws Exception {
 		Catagory cata = scoreFactory.getCata(cat);
 		ArrayList<Die> dice = diceeee.getDice();
 		cata.score(dice);

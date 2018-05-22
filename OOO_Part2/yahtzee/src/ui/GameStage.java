@@ -2,6 +2,8 @@ package ui;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import controller.PlayerController;
 import domain.Die;
 import domain.GameFacade;
@@ -242,12 +244,17 @@ public class GameStage implements Observer {
 	      //1. Neem uw combobox value
 	      //2.Krijg uw strategy score //Story5
 	      //
-	    	game.callCulatedScore( cbxStatus.getValue());
-	    	setInputTable(game.getPlayerScorBoard());
-	    	game.nextPlayerTurn();
-	    	for (Die die: game.getDice()) {
-	    		game.PlayWithDie(die);
-	    	}
+	    	try {
+				game.callCulatedScore( cbxStatus.getValue());
+				setInputTable(game.getPlayerScorBoard());
+		    	game.nextPlayerTurn();
+		    	for (Die die: game.getDice()) {
+		    		game.PlayWithDie(die);
+		    	}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Please select a catagory you haven't selected yet");
+			}
+	    	
 	    	game.notiffy();
 	    }
 	    

@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class LargeStraight implements Catagory {
 	SimpleIntegerProperty scored = new SimpleIntegerProperty(0);
-	SimpleStringProperty name = new SimpleStringProperty("LargeStraight");
+	SimpleStringProperty name = new SimpleStringProperty("LARGE_STRAIGHT");
 	@Override
 	public void score(ArrayList<Die> dice) {
 		int score;
