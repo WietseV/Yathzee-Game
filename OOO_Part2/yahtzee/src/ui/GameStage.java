@@ -2,6 +2,8 @@ package ui;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import controller.PlayerController;
 import domain.Die;
 import domain.GameFacade;
@@ -249,7 +251,7 @@ public class GameStage implements Observer {
 		    		game.PlayWithDie(die);
 		    	}
 			} catch (Exception e) {
-				
+				JOptionPane.showMessageDialog(null, "Please select a catagory you haven't selected yet");
 			}
 	    	
 	    	game.notiffy();
