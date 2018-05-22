@@ -50,4 +50,19 @@ public class YahtzeeDice {
 		die.setPlayable(true);
 	}
 
+	
+	
+	public void clear() {
+		for (Die die: dice) {
+			die.setNumber(0);
+		}
+		for (Die die: savedDice) {
+			die.setNumber(0);
+
+		}
+		for (Die die: playableDice) {
+			die.setNumber(0);
+
+		}
+	}
 }

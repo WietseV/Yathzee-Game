@@ -105,12 +105,14 @@ public class GameFacade implements Subject {
 	public void nextPlayerTurn() {
 		// deze functie moet alle stage disable
 		// en dan van de juiste speler visible maken
+		clearDice();
 		playerGroup.setNextPlayer();
 		turnToPlayer = getActivePlayer();
 		setStageCorrectly(turnToPlayer);
 	}
 
 	public void endPlayerTurn() {
+		
 		Player player = getActivePlayer();
 		gamePanes.get(player).endTurnUi();
 	}
@@ -128,7 +130,9 @@ public class GameFacade implements Subject {
 		yathzeeDice.playWithDie(die);
 		notiffy();
 	}
-
+	public void clearDice() {
+		yathzeeDice.clear();
+	}
 	@Override
 	public void add(Observer o) {
 		observerList.add(o);
