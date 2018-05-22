@@ -43,6 +43,13 @@ public class YahtzeeDice {
 		savedDice.add(die);
 		die.setPlayable(false);
 	}
+	
+	public void returnDie(Die die) {
+		playableDice.add(die);
+		savedDice.remove(die);
+		die.setPlayable(true);
+	}
+	
 
 	public void playWithDie(Die die) {
 		savedDice.remove(die);
