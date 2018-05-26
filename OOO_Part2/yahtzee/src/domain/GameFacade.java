@@ -31,27 +31,6 @@ public class GameFacade implements Subject {
 		addPlayerAndPlaycon(player, playCon);
 	}
 
-	public void setStageCorrectly(Player player) {
-		// setNextPlayerTurn();
-		// de getNextPlayer bestond al dus ge kunt die gewoon gebruiken
-		// turnToPlayer = playerGroup.getNextPlayer();
-		// PlayerController playcon = gamePains.get(turnToPlayer);
-		// geen idee wa ge hiermee van plan waart dus ff in commentaar gezet
-		
-		
-		/*List<Player> playersList = playerGroup.getList();
-		for (Player p : playersList) {
-			gamePanes.get(p).setWatchState();
-		}
-		turn = 3;
-		gamePanes.get(player).setPlayState();*/
-		
-		List<Player> playersList = playerGroup.getList();
-		for (Player p : playersList) {
-			if (gamePanes.get(p).getState() instanceof PlayStage);
-		}
-	}
-
 	public void addPlayerAndPlaycon(Player player, PlayerController playCon) {
 		// deze gaat alle buttons invisible zetten bij elke juist stage/ player
 		// controller
@@ -113,9 +92,9 @@ public class GameFacade implements Subject {
 	}
 
 	public void nextPlayerTurn() {
-		// deze functie moet alle stage disable
-		// en dan van de juiste speler visible maken
+	
 		clearDice();
+		
 		GameStageState state = gamePanes.get(turnToPlayer).getState();
 		state.watch();
 		
@@ -126,7 +105,6 @@ public class GameFacade implements Subject {
 		
 		state = gamePanes.get(turnToPlayer).getState();
 		state.play();
-		
 		
 	}
 

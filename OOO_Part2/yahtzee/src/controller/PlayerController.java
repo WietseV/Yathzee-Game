@@ -14,7 +14,7 @@ public class PlayerController {
 	private PlayStage playState;
 	private WatchStage watchState;
 	private EndStage endState;
-	
+	private Integer maxTurn = 13;
 
 	public void startGame() {
 		this.gameStage = new GameStage(this);
@@ -97,8 +97,12 @@ public class PlayerController {
 	}
 	
 	public void setStageCorrectrly() {
+		
 		if (getState() instanceof WatchStage) disableStageUi();
-		else if (getState() instanceof PlayStage) enableStageUi();
-		else if (getState() instanceof EndStage); //TODO;
+		else if (getState() instanceof PlayStage && turnNumber <= maxTurn) {
+			enableStageUi();
+		}
+		else this.state = endState;
+		
 	}
 }
