@@ -6,6 +6,8 @@ import java.util.List;
 
 import controller.PlayerController;
 import scoring.Catagories;
+import state.GameStageState;
+import state.PlayStage;
 import ui.Observer;
 
 public class GameFacade implements Subject {
@@ -35,12 +37,19 @@ public class GameFacade implements Subject {
 		// turnToPlayer = playerGroup.getNextPlayer();
 		// PlayerController playcon = gamePains.get(turnToPlayer);
 		// geen idee wa ge hiermee van plan waart dus ff in commentaar gezet
-		List<Player> playersList = playerGroup.getList();
+		
+		
+		/*List<Player> playersList = playerGroup.getList();
 		for (Player p : playersList) {
-			gamePanes.get(p).disableStageUi();
+			gamePanes.get(p).setWatchState();
 		}
 		turn = 3;
-		gamePanes.get(player).enableStageUi();
+		gamePanes.get(player).setPlayState();*/
+		
+		List<Player> playersList = playerGroup.getList();
+		for (Player p : playersList) {
+			if (gamePanes.get(p).getState() instanceof PlayStage);
+		}
 	}
 
 	public void addPlayerAndPlaycon(Player player, PlayerController playCon) {
@@ -99,16 +108,26 @@ public class GameFacade implements Subject {
 
 	public void firstTurn() {
 		turnToPlayer = getActivePlayer();
-		setStageCorrectly(turnToPlayer);
+		GameStageState state = gamePanes.get(turnToPlayer).getState();
+		state.play();
 	}
 
 	public void nextPlayerTurn() {
 		// deze functie moet alle stage disable
 		// en dan van de juiste speler visible maken
 		clearDice();
+		GameStageState state = gamePanes.get(turnToPlayer).getState();
+		state.watch();
+		
+		turn = 3;
+		
 		playerGroup.setNextPlayer();
 		turnToPlayer = getActivePlayer();
-		setStageCorrectly(turnToPlayer);
+		
+		state = gamePanes.get(turnToPlayer).getState();
+		state.play();
+		
+		
 	}
 
 	public void endPlayerTurn() {

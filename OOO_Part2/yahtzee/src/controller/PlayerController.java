@@ -1,6 +1,7 @@
 package controller;
 
 import domain.GameFacade;
+import state.*;
 import ui.GameStage;
 
 public class PlayerController {
@@ -8,16 +9,62 @@ public class PlayerController {
 	private GameFacade gameFacade;
 	private String player;
 	private GameStage gameStage;
+	private Integer turnNumber = 0; 
+	private GameStageState state;
+	private PlayStage playState;
+	private WatchStage watchState;
+	private EndStage endState;
+	
 
 	public void startGame() {
 		this.gameStage = new GameStage(this);
 		gameFacade.add(gameStage);
 		gameStage.show();
+		setState(watchState);
 	}
 
 	public PlayerController(GameFacade gameFacade, String name) {
 		this.gameFacade = gameFacade;
 		this.player = name;
+		playState = new PlayStage(this);
+		watchState = new WatchStage(this);
+		endState = new EndStage(this);
+		
+		
+		
+	}
+
+	public GameStageState getState() {
+		return state;
+	}
+
+	public void setState(GameStageState state) {
+		this.state = state;
+		setStageCorrectrly();
+	}
+
+	public PlayStage getPlayState() {
+		return playState;
+	}
+
+	public void setPlayState(PlayStage playState) {
+		this.playState = playState;
+	}
+
+	public WatchStage getWatchState() {
+		return watchState;
+	}
+
+	public void setWatchState(WatchStage watchState) {
+		this.watchState = watchState;
+	}
+
+	public EndStage getEndState() {
+		return endState;
+	}
+
+	public void setEndState(EndStage endState) {
+		this.endState = endState;
 	}
 
 	public GameFacade getGameFacade() {
@@ -37,6 +84,7 @@ public class PlayerController {
 	}
 	
 	public void enableStageUi() {
+		turnNumber++;
 		gameStage.enableUI();
 	}
 	
@@ -46,5 +94,11 @@ public class PlayerController {
 	
 	public int getTurn() {
 		return gameFacade.getTurn();
+	}
+	
+	public void setStageCorrectrly() {
+		if (getState() instanceof WatchStage) disableStageUi();
+		else if (getState() instanceof PlayStage) enableStageUi();
+		else if (getState() instanceof EndStage); //TODO;
 	}
 }
