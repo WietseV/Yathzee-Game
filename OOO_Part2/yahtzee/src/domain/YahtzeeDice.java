@@ -4,22 +4,20 @@ import java.util.ArrayList;
 
 public class YahtzeeDice {
 
-	/* Deze klassen dient ervoor op de 5 dobbelstenen te creeeren */
+	private ArrayList<Die> dice = new ArrayList<Die>();
+	private ArrayList<Die> savedDice = new ArrayList<Die>();
+	private ArrayList<Die> playableDice = new ArrayList<Die>();
+	private int amountOfDice = 0;
 
-	// ik weet niet als het handig is om ofwel telkens een nieuwe instansie te maken
-	// van
-	// yathzeedice voor elke worp of gewoon dat de stenen worden aangepast.
-	// ik ga het nu bij het 2e houden. stenen worden aangepast.
-	ArrayList<Die> dice = new ArrayList<Die>();
+	public YahtzeeDice(int amountOfDice) {
+		setDice(amountOfDice);
+	}
 
-	public YahtzeeDice() {
+	public int getAmountOfDice() {
+		return amountOfDice;
+	}
 
-		Die dieOne = new Die();
-		Die dieTwo = new Die();
-		Die dieTree = new Die();
-		Die dieFour = new Die();
-		Die dieFive = new Die();
-
+<<<<<<< HEAD
 		dice.add(dieOne);
 		dice.add(dieTwo);
 		dice.add(dieTree);
@@ -29,20 +27,68 @@ public class YahtzeeDice {
 		for (Die die: dice) {
 			setStandaard(die);
 		}
+=======
+	public void setAmountOfDice(int amountOfDice) {
+		this.amountOfDice = amountOfDice;
+>>>>>>> master
 	}
 
-	public void generateDice() {
+	public void ThrowDice() {
 		for (Die die : dice) {
-			die.throwDie();
+			if (die.isPlayable())
+				die.throwDie();
 		}
 	}
 
 	public ArrayList<Die> getDice() {
 		return dice;
 	}
+
+	private void setDice(int amountOfDice) {
+		for (int i = 0; i < amountOfDice; i++) {
+			dice.add(new Die());
+		}
+	}
+
+	public void keepDie(Die die) {
+		playableDice.remove(die);
+		savedDice.add(die);
+		die.setPlayable(false);
+	}
 	
+<<<<<<< HEAD
 	public void setStandaard(Die die) {
 		die.setNumber(1);
 	}
 	
+=======
+	public void returnDie(Die die) {
+		playableDice.add(die);
+		savedDice.remove(die);
+		die.setPlayable(true);
+	}
+	
+
+	public void playWithDie(Die die) {
+		savedDice.remove(die);
+		playableDice.add(die);
+		die.setPlayable(true);
+	}
+
+	
+	
+	public void clear() {
+		for (Die die: dice) {
+			die.setNumber(0);
+		}
+		for (Die die: savedDice) {
+			die.setNumber(0);
+
+		}
+		for (Die die: playableDice) {
+			die.setNumber(0);
+
+		}
+	}
+>>>>>>> master
 }

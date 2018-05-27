@@ -1,33 +1,43 @@
 package domain;
 
+import scoring.Catagories;
+
 import java.util.ArrayList;
+
+import com.sun.scenario.effect.DisplacementMap;
+
+import scoring.*;
 
 public class Player {
 
 	private String name;
-	private YahtzeeDice dice;
-
+	private ScoreFactory scoreFactory= new ScoreFactory();
+	private ScoreBoard scoreBoard = new ScoreBoard();
+	
 	public Player(String name) {
 		setName(name);
-		setDice(new YahtzeeDice());
 	}
 
 	private void setName(String name) {
 		this.name = name;
 	}
 
-	
-
-	public void setDice(YahtzeeDice dice) {
-		this.dice = dice;
+	public String getName() {
+		return name;
 	}
 
-	/*public void throwDice() {
-		dice.generateDice();
-	}*/
+	public void calculateScore (Catagories cat, YahtzeeDice diceeee) throws Exception {
+		Catagory cata = scoreFactory.getCata(cat);
+		ArrayList<Die> dice = diceeee.getDice();
+		cata.score(dice);
+		scoreBoard.setScore(cata);
+	}
 	
-	/*public  ArrayList<Die> getDice() {  // je krijgt een array terug van 6 dobbelstenen 
-	return dice.getDice();
-	}*/
-
+	public ScoreBoard getScoreBoard() {
+		return this.scoreBoard;
+	}
+	
+	public Integer getScore() {
+		return scoreBoard.getTotalScore();
+	}
 }

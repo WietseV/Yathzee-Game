@@ -6,43 +6,42 @@ import java.util.Optional;
 
 
 import domain.*;
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
-import javafx.stage.Stage;
 
 public class Controller {
 
 	private GameFacade gameFacade = new GameFacade();
-	private TextInputDialog tid = new TextInputDialog();
 	private String name = "";
 
 	public void start() {
 		ArrayList<PlayerController> playerConList = new ArrayList<PlayerController>();
-		
-		
-		while(true) {
+		while (true) {
+			TextInputDialog tid = new TextInputDialog();
+			tid.setTitle("Register player");
+			tid.setHeaderText("Register a new player");
+			tid.setContentText("Please enter your name: ");
+
+			Optional<String> result = tid.showAndWait();
+			if (result.isPresent() && !result.equals("")) {
+				name = result.get();
+			} else
+				break;
+			if (name.equals(""))
+				break;
+
+//			playerConList.add(new PlayerController(gameFacade, name));
+//			gameFacade.createPlayer(name); <-- returned een playr werd niks meegedaan
 			
-		TextInputDialog tid = new TextInputDialog();
-		tid.setTitle("Register player");
-		tid.setHeaderText("Register a new player");
-		tid.setContentText("Please enter your name: ");
-		
-		Optional<String> result = tid.showAndWait();
-		if (result.isPresent()) {
-			name = result.get();
+			PlayerController playCon = new PlayerController(gameFacade, name);
+			playerConList.add(playCon);
+			gameFacade.regPlayer(name, playCon);
+			
 		}
-		else break;
-		gameFacade.regPlayer(name);
-		
-		playerConList.add(new PlayerController(gameFacade, name));
-		
-		}
-		
-		for(PlayerController pc : playerConList) {
+
+		for (PlayerController pc : playerConList) {
 			pc.startGame();
 		}
-		// Dit gaat aangepast moeten worden omdat het beter is om gewoon dat de controller zegt tegen facade, 
-		// ik ben klaar, begin maar. 
+		
+		gameFacade.firstTurn();
 	}
 }
