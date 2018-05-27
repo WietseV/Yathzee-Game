@@ -36,4 +36,8 @@ public class Player {
 	public ScoreBoard getScoreBoard() {
 		return this.scoreBoard;
 	}
+	
+	public Integer getScore() {
+		return scoreBoard.getTotalScore();
+	}
 }

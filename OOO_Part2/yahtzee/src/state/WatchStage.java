@@ -20,6 +20,7 @@ public class WatchStage extends GameStageState{
 		this.gameStage.setState(this.gameStage.getEndState());
 	}
 	
+	
 	@Override
 	public String getState() {
 		return "WatchState";

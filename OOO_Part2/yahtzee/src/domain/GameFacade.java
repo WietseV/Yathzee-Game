@@ -16,12 +16,12 @@ public class GameFacade implements Subject {
 	private PlayerGroup playerGroup = new PlayerGroup();
 	private YahtzeeDice yathzeeDice = new YahtzeeDice(AMOUNT_OF_DICE);
 	private ArrayList<Observer> observerList = new ArrayList<Observer>();
-
+	private Integer maxTurn = 13;
 	private Hashtable<Player, PlayerController> gamePanes = new Hashtable<Player, PlayerController>();
 	private ScoreBoard currentPlayerScoreBoard;
 	private int groupsize;
 	private int turn = 3;
-
+	private GameStageState state;
 	private Player turnToPlayer;
 
 	// TODO add PLayCon turn player
@@ -87,15 +87,16 @@ public class GameFacade implements Subject {
 
 	public void firstTurn() {
 		turnToPlayer = getActivePlayer();
-		GameStageState state = gamePanes.get(turnToPlayer).getState();
+		state = gamePanes.get(turnToPlayer).getState();
 		state.play();
+
 	}
 
 	public void nextPlayerTurn() {
 	
 		clearDice();
 		
-		GameStageState state = gamePanes.get(turnToPlayer).getState();
+		state = gamePanes.get(turnToPlayer).getState();
 		state.watch();
 		
 		turn = 3;
@@ -104,7 +105,10 @@ public class GameFacade implements Subject {
 		turnToPlayer = getActivePlayer();
 		
 		state = gamePanes.get(turnToPlayer).getState();
+		if (maxTurn == gamePanes.get(turnToPlayer).getTurnNumber()) state.end();
 		state.play();
+		
+		
 		
 	}
 
@@ -134,6 +138,10 @@ public class GameFacade implements Subject {
 	}
 	public void clearDice() {
 		yathzeeDice.clear();
+	}
+	
+	public Player getWinner() {
+		return playerGroup.getWinner();
 	}
 	@Override
 	public void add(Observer o) {

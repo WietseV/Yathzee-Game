@@ -203,6 +203,12 @@ public class GameStage implements Observer {
 //		}
 		scoreTable.setItems(sb.getDataList());
 	}
+	
+	public void close() {
+		primarystage.close();
+		
+	}
+	
 	@Override
 	public void update() {
 		ArrayList<Die> dice = game.getDice();
@@ -275,4 +281,5 @@ public class GameStage implements Observer {
 	    }
 	    
 	  }
+
 }

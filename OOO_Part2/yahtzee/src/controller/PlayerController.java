@@ -2,6 +2,7 @@ package controller;
 
 import domain.GameFacade;
 import state.*;
+import ui.EndScreenStage;
 import ui.GameStage;
 
 public class PlayerController {
@@ -14,7 +15,8 @@ public class PlayerController {
 	private PlayStage playState;
 	private WatchStage watchState;
 	private EndStage endState;
-	private Integer maxTurn = 13;
+	private EndScreenStage eSS;
+	
 
 	public void startGame() {
 		this.gameStage = new GameStage(this);
@@ -29,9 +31,6 @@ public class PlayerController {
 		playState = new PlayStage(this);
 		watchState = new WatchStage(this);
 		endState = new EndStage(this);
-		
-		
-		
 	}
 
 	public GameStageState getState() {
@@ -79,6 +78,10 @@ public class PlayerController {
 		return gameStage;
 	}
 	
+	public Integer getTurnNumber() {
+		return turnNumber;
+	}
+
 	public void disableStageUi() {
 		gameStage.disableUI();
 	}
@@ -99,10 +102,18 @@ public class PlayerController {
 	public void setStageCorrectrly() {
 		
 		if (getState() instanceof WatchStage) disableStageUi();
-		else if (getState() instanceof PlayStage && turnNumber <= maxTurn) {
-			enableStageUi();
+		else if (getState() instanceof PlayStage) enableStageUi();
+		else {
+			gameStage.close();
+			createEndScreen();
+			gameFacade.nextPlayerTurn();
 		}
-		else this.state.end();
+		
+	}
+
+	private void createEndScreen() {
+		eSS = new EndScreenStage(gameFacade.getWinner(), this);
+		eSS.show();
 		
 	}
 }

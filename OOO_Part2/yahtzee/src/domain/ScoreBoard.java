@@ -14,6 +14,7 @@ public class ScoreBoard {
 
 	ObservableList<Catagory> data = FXCollections.observableArrayList();
 	HashSet<String> takenScores = new HashSet<String>();
+	
 	public void setScore(Catagory cat) throws Exception {
 		if(takenScores.add(cat.getName())) data.add(cat);
 		else throw new Exception();
@@ -21,5 +22,13 @@ public class ScoreBoard {
 
 	public ObservableList<Catagory> getDataList() {
 		return this.data;
+	}
+	
+	public Integer getTotalScore() {
+		Integer totalPoints = 0;
+		for (Catagory cat: data) {
+			totalPoints += cat.getScore();
+		}
+		return totalPoints;
 	}
 }

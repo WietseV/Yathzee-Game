@@ -10,8 +10,14 @@ public class PlayStage extends GameStageState{
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	@Override
 	public void watch() {
 		this.gameStage.setState(this.gameStage.getWatchState());
+	}
+	
+	@Override
+	public String getState() {
+		return "PlayStage";
 	}
 }
