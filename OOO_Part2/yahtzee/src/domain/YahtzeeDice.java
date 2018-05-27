@@ -17,8 +17,10 @@ public class YahtzeeDice {
 		return amountOfDice;
 	}
 
+
 	public void setAmountOfDice(int amountOfDice) {
 		this.amountOfDice = amountOfDice;
+
 	}
 
 	public void ThrowDice() {
@@ -44,6 +46,7 @@ public class YahtzeeDice {
 		die.setPlayable(false);
 	}
 	
+
 	public void returnDie(Die die) {
 		playableDice.add(die);
 		savedDice.remove(die);
@@ -72,4 +75,5 @@ public class YahtzeeDice {
 
 		}
 	}
+
 }
