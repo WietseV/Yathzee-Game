@@ -156,7 +156,7 @@ public class GameFacade implements Subject {
 			
 			turnToPlayer = getActivePlayer();
 			playerGroup.removePlayer(turnToPlayer);
-			
+			remove(gamePanes.get(turnToPlayer).getGameStage());
 			state = gamePanes.get(turnToPlayer).getState();
 			state.end();
 		}
