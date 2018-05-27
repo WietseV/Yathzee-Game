@@ -102,7 +102,7 @@ public class PlayerController {
 		else if (getState() instanceof PlayStage && turnNumber <= maxTurn) {
 			enableStageUi();
 		}
-		else this.state = endState;
+		else this.state.end();
 		
 	}
 }
