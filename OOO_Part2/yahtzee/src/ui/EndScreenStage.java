@@ -49,7 +49,7 @@ public class EndScreenStage {
 
 	private HBox createRoot() {
 		HBox box = new HBox();
-		labelWinner = new Label("The winner is " + winningPlayer.getName());
+		labelWinner = new Label("The winner is " + winningPlayer.getName() + " with the scre off" + winningPlayer.getScore());
 		box.getChildren().add(labelWinner);
 		return box;
 	}
