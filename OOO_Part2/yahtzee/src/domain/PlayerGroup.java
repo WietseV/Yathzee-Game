@@ -20,7 +20,9 @@ public class PlayerGroup {
 	public Player getFirstPlayer() {
 		return playerList.get(0);
 	}
-	
+	public void removePlayer(Player player) {
+		playerList.remove(player);
+	}
 	public void setNextPlayer() {
 		currentActivePlayer = nextPlayer;
 		if (nextPlayer < playerList.size()-1) {

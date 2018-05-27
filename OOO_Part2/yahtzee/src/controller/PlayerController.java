@@ -106,7 +106,7 @@ public class PlayerController {
 		else {
 			gameStage.close();
 			createEndScreen();
-			gameFacade.nextPlayerTurn();
+			gameFacade.endTheGame();
 		}
 		
 	}

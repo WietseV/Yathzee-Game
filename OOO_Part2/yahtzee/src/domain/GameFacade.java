@@ -23,7 +23,7 @@ public class GameFacade implements Subject {
 	private int turn = 3;
 	private GameStageState state;
 	private Player turnToPlayer;
-
+	private Player winner;
 	// TODO add PLayCon turn player
 	public void regPlayer(String name, PlayerController playCon) {
 		Player player = new Player(name);
@@ -141,7 +141,25 @@ public class GameFacade implements Subject {
 	}
 	
 	public Player getWinner() {
-		return playerGroup.getWinner();
+		if ( winner == null) setWinner();
+		return winner;
+	}
+	
+	private void setWinner() {
+		winner = playerGroup.getWinner();
+	}
+
+	public void endTheGame() {
+		if (!playerGroup.getList().isEmpty()) {
+			
+			playerGroup.setNextPlayer();
+			
+			turnToPlayer = getActivePlayer();
+			playerGroup.removePlayer(turnToPlayer);
+			
+			state = gamePanes.get(turnToPlayer).getState();
+			state.end();
+		}
 	}
 	@Override
 	public void add(Observer o) {
