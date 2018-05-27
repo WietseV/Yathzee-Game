@@ -4,7 +4,7 @@ import scoring.Catagories;
 
 import java.util.ArrayList;
 
-import com.sun.scenario.effect.DisplacementMap;
+
 
 import scoring.*;
 

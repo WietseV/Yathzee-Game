@@ -17,20 +17,10 @@ public class YahtzeeDice {
 		return amountOfDice;
 	}
 
-<<<<<<< HEAD
-		dice.add(dieOne);
-		dice.add(dieTwo);
-		dice.add(dieTree);
-		dice.add(dieFour);
-		dice.add(dieFive);
-		
-		for (Die die: dice) {
-			setStandaard(die);
-		}
-=======
+
 	public void setAmountOfDice(int amountOfDice) {
 		this.amountOfDice = amountOfDice;
->>>>>>> master
+
 	}
 
 	public void ThrowDice() {
@@ -56,12 +46,7 @@ public class YahtzeeDice {
 		die.setPlayable(false);
 	}
 	
-<<<<<<< HEAD
-	public void setStandaard(Die die) {
-		die.setNumber(1);
-	}
-	
-=======
+
 	public void returnDie(Die die) {
 		playableDice.add(die);
 		savedDice.remove(die);
@@ -90,5 +75,5 @@ public class YahtzeeDice {
 
 		}
 	}
->>>>>>> master
+
 }
